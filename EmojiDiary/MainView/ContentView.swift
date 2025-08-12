@@ -12,7 +12,6 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            // 첫 번째 탭
             VStack() {
                 Text("Project Name")
                     .font(.headline)
