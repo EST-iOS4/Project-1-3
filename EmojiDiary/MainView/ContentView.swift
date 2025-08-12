@@ -13,13 +13,13 @@ struct ContentView: View {
     var body: some View {
         TabView {
             VStack() {
-                Text("Project Name")
+                Text("Project Name") //Project 제목
                     .font(.headline)
                     .fontWeight(.bold)
                 
-                DatePicker("", selection: $date, displayedComponents: [.date])
+                DatePicker("", selection: $date, displayedComponents: [.date]) //달력
                     .datePickerStyle(.graphical)
-                    .environment(\.locale, Locale(identifier: "ko"))
+                    .environment(\.locale, Locale(identifier: "ko")) //yyyy mm 부분 영어 -> 한글
                     .padding()
                 Spacer()
             }
