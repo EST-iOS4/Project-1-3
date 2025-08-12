@@ -25,7 +25,8 @@ struct EmojiDiaryApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+//            ContentView()
+            ListView(data: EmojiPercent.dummyData())
         }
         .modelContainer(sharedModelContainer)
     }
