@@ -82,6 +82,7 @@ struct EditView: View {
           .confirmationDialog("타이틀", isPresented: $UpSheet){
             Button("수정", action: {})
             Button("삭제"){
+            // TODO: 메세지추가
               Alert = true
             }
             .alert("정말 삭제하시겠습니까?", isPresented: $Alert){
