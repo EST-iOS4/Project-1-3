@@ -31,6 +31,7 @@ struct CreateView: View {
               Image(systemName:"chevron.backward")
             }
           }
+          
           ToolbarItem(placement: .principal){
             // 선택한 날짜
             Text(getDate)
@@ -66,6 +67,9 @@ struct CreateView: View {
               .background(.yellow.opacity(0.1))
           )
           .font(.body)
+        //FocusState
+         
+        
         
         
         //가이드 텍스트 표시
