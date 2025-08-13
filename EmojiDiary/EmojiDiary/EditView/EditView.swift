@@ -20,19 +20,20 @@ struct EditView: View {
       VStack(spacing: 35){
         
         // 이모티콘 고르기
-       
-          HStack{
-            Text("🩷")
-              .font(.system(size: 50))
-            Text("💔")
-              .font(.system(size: 50))
-            Text("💗")
-              .font(.system(size: 50))
-          }
+        // TODO: For Each로 변경예정
+        HStack{
+          Button("🩷", action: {})
+            .font(.system(size: 50))
+          Button("💔", action: {})
+            .font(.system(size: 50))
+          Button("💗", action: {})
+            .font(.system(size: 50))
+        }
         
         
         
         // 일기 작성란
+        // FIXME: 키보드가 안올라오는것 같음
         VStack {
           ZStack {
             TextEditor(text: $comment)
@@ -42,7 +43,7 @@ struct EditView: View {
               .overlay(
                 RoundedRectangle(cornerRadius: 20)
                   .stroke(Color.gray.opacity(0.25))
-                  .fill(.yellow.opacity(0.1)) //background -> fill or clipshape , 보더 밖으로 튀어나오는 이슈
+                  .fill(.yellow.opacity(0.1))
               )
               .font(.body)
             
