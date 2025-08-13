@@ -27,7 +27,7 @@ struct ContentView: View {
                     Image(systemName: "calendar")
                     Text("달력")
                 }
-            
+                
             // 두 번째 탭
             Text("두 번째 화면")
                 .tabItem {
