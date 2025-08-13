@@ -6,22 +6,13 @@
 
 import SwiftUI
 
-struct CreateView: View {
+struct EditView: View {
   @State private var comment: String = "" //일기 본문내용
-  @Binding var getDate: Date // 외부에서 받아오는 날짜
+  @Binding var getDate: String // 외부에서 받아오는 날짜
   
-    private var titleFormatter: DateFormatter {
-        let f = DateFormatter()
-        f.locale = Locale(identifier: "ko_KR")
-        f.dateFormat = "yyyy년 M월 d일"
-        return f
-    }
   
   var body: some View {
     // 상단 바
-
-    
-
     NavigationView {
       VStack{}
         .toolbar{
@@ -37,11 +28,9 @@ struct CreateView: View {
               .font(.system(size: 20))
           }
         }
-
     }
     .padding()
-    .navigationTitle(titleFormatter.string(from: getDate))
-    .navigationBarTitleDisplayMode(.inline)
+    .ignoresSafeArea(edges: .top)
     
     // 이모티콘 고르기
     HStack{
@@ -96,6 +85,6 @@ struct CreateView: View {
 
 
 #Preview {
-  CreateView(getDate)
+  EditView(getDate: .constant("2025-08-12")) //임시값
 }
 
