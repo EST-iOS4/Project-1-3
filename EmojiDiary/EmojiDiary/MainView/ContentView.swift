@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  EmojiDiary
-//
-//  Created by 서정원 on 8/12/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
@@ -12,18 +5,34 @@ struct ContentView: View {
     
     var body: some View {
         // 첫 번째 화면
-        TabView {
-            VStack() {
-                Text("Project Name") //Project 제목
+        VStack {
+            ZStack {
+                Text("Project Name")
                     .font(.headline)
-                    .fontWeight(.bold)
+                    .padding(.horizontal)
+
+                HStack{
+                    Spacer()
+                    
+                    Button(action: {
+                        // 설정 버튼 클릭 시 동작
+                    }) {
+                        Image(systemName: "gearshape")
+                            .imageScale(.large)
+                    }
+                }
                 
-                DatePicker("", selection: $date, displayedComponents: [.date]) //달력
-                    .datePickerStyle(.graphical)
-                    .environment(\.locale, Locale(identifier: "ko")) //yyyy mm 부분 영어 -> 한글
-                    .padding()
-                Spacer()
+                .padding(.horizontal)
             }
+
+            DatePicker("", selection: $date, displayedComponents: [.date])
+                .datePickerStyle(.graphical)
+                .environment(\.locale, Locale(identifier: "ko"))
+                .padding()
+
+            Spacer()
+        }
+
                 .tabItem {
                     Image(systemName: "calendar")
                     Text("달력")
@@ -37,7 +46,6 @@ struct ContentView: View {
                 }
         }
     }
-}
 
 #Preview {
     ContentView()
