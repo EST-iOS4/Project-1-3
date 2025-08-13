@@ -9,8 +9,14 @@ import SwiftUI
 
 struct CreateView: View {
   @State private var comment: String = "" //일기 본문내용
-  @Binding var getDate: String // 외부에서 받아오는 날짜
+  @Binding var getDate: Date // 외부에서 받아오는 날짜
   
+    private var titleFormatter: DateFormatter {
+        let f = DateFormatter()
+        f.locale = Locale(identifier: "ko_KR")
+        f.dateFormat = "yyyy년 M월 d일"
+        return f
+    }
   
   var body: some View {
     // 상단 바
@@ -19,20 +25,20 @@ struct CreateView: View {
         //뒤로가기 버튼
         HStack {
           Button(action: {print("뒤로 갔습니다")}){
-            Image(systemName:"chevron.backward")
+            
           }
+            
           
           Spacer()
         }
         .padding(.leading,30)
         
-        // 선택한 날짜
-        Text(getDate)
-          .font(.system(size: 20))
+        
       }
     }
     .padding()
-    .ignoresSafeArea(edges: .top)
+    .navigationTitle(titleFormatter.string(from: getDate))
+    .navigationBarTitleDisplayMode(.inline)
     
     // 이모티콘 고르기
     HStack{
@@ -86,6 +92,6 @@ struct CreateView: View {
 }
 
 
-#Preview {
-  CreateView(getDate: .constant("2025-08-12")) //임시값
-}
+//#Preview {
+//    CreateView(getDate: Date()) //임시값
+//}
