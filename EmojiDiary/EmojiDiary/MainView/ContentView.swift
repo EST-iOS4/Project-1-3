@@ -22,6 +22,8 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "chart.pie")
                     Text("통계")
+                    
+                    
                 }
         }
     }
