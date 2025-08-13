@@ -8,27 +8,12 @@
 import SwiftUI
 import Charts
 
-struct EmojiPercent {
-    let emoji: String
-    let count: Int
-    
-    static func dummyData() -> [EmojiPercent] {
-        return [
-            EmojiPercent(emoji: "all", count: 20),
-            EmojiPercent(emoji: "🤗", count: 20),
-            EmojiPercent(emoji: "🔥", count: 20),
-            EmojiPercent(emoji: "😰", count: 20),
-            EmojiPercent(emoji: "😱", count: 20)
-        ]
-    }
-}
-
 struct ListView: View {
     @State private var currentDate = Date()
     @State var selectedTab = "all"
     
     var tabs = ["all","🤗","🔥","😰","😱"]
-    var data: [EmojiPercent]
+    
     
     let dummyData: [String] = ["사과", "바나나", "딸기", "수박","사과1", "바나나1", "딸기1", "수박2", "바나나2", "딸기2", "수박3", "바나나3", "딸기3", "수박4"]
     
@@ -77,13 +62,13 @@ struct ListView: View {
                 .padding()
             }
             
-            Chart(data, id: \.emoji) { element in
-                SectorMark(angle: .value("Usage", element.count), angularInset: 1.5)        //angularInset 으로 차트 사이 간격을 줄 수 있음
-                    .foregroundStyle(by: .value("Emoji", element.emoji))
-            }
-            .chartLegend(alignment: .center, spacing: 18)
-            .padding()
-            .scaledToFit()
+//            Chart(data, id: \.emoji) { element in
+//                SectorMark(angle: .value("Usage", element.count), angularInset: 1.5)        //angularInset 으로 차트 사이 간격을 줄 수 있음
+//                    .foregroundStyle(by: .value("Emoji", element.emoji))
+//            }
+//            .chartLegend(alignment: .center, spacing: 18)
+//            .padding()
+//            .scaledToFit()
             
             List {
                 ForEach(dummyData, id: \.self) { fruit in
@@ -107,5 +92,5 @@ struct ListView: View {
 }
 
 #Preview {
-    ListView(data: EmojiPercent.dummyData())
+    ListView()
 }
