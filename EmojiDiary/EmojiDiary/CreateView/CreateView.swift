@@ -55,6 +55,7 @@ struct CreateView: View {
           .frame(width: 350, height: 400)
           .padding()
           .autocorrectionDisabled()
+          .focused($isTextEditorFocused)
           .overlay(
             RoundedRectangle(cornerRadius: 20)
               .stroke(Color.gray.opacity(0.3))
