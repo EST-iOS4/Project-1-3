@@ -8,7 +8,7 @@
 
 /* Begin PBXFileReference section */
 		62FD7E672E4ACA6B00EFE083 /* EmojiDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmojiDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8BB902922E4C2425001D49F5 /* EmojiDiary.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = EmojiDiary.xcodeproj; sourceTree = "<group>"; };
+		8B4813A32E4C511200A6E5DC /* EmojiDiary.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = EmojiDiary.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -46,7 +46,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8BB902932E4C2425001D49F5 /* Products */ = {
+		8B4813A62E4C511200A6E5DC /* Products */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -107,8 +107,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 8BB902932E4C2425001D49F5 /* Products */;
-					ProjectRef = 8BB902922E4C2425001D49F5 /* EmojiDiary.xcodeproj */;
+					ProductGroup = 8B4813A62E4C511200A6E5DC /* Products */;
+					ProjectRef = 8B4813A32E4C511200A6E5DC /* EmojiDiary.xcodeproj */;
 				},
 			);
 			projectRoot = "";
