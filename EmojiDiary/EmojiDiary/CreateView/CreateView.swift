@@ -36,7 +36,7 @@ struct CreateView: View {
     .navigationTitle(titleFormatter.string(from: getDate))
     .navigationBarTitleDisplayMode(.inline)
     
-    // FIXME:ForEach로 바꿔보는건?
+    // FIXME: ForEach로 바꿔보는건?
     // 이모티콘 고르기
     HStack{
       Button("🩷", action: {})
