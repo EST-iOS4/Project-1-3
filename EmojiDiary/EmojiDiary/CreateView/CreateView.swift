@@ -1,6 +1,5 @@
 //
-//  CreateView.swift
-//  EmojiDiary
+//  EditView.swift
 //
 //  Created by EunYoung Wang on 8/12/25.
 //
@@ -21,6 +20,7 @@ struct CreateView: View {
   
   var body: some View {
     // 상단 바
+
     VStack(spacing: 0) {
       ZStack {
         //뒤로가기 버튼
@@ -64,6 +64,7 @@ struct CreateView: View {
           .onTapGesture {
             isTextEditorFocused = true
           }
+
         
         
         //가이드 텍스트 표시
@@ -93,8 +94,8 @@ struct CreateView: View {
 }
 
 
+
 // FIXME: 프리뷰오류, 데이터타입 String으로 변환요구
 // #Previw {
 //  EditView(getDate: .constant(Date()))
 //}
-
