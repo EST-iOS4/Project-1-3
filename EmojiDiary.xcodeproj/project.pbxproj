@@ -8,6 +8,7 @@
 
 /* Begin PBXFileReference section */
 		62FD7E672E4ACA6B00EFE083 /* EmojiDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmojiDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BB902922E4C2425001D49F5 /* EmojiDiary.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = EmojiDiary.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -41,6 +42,13 @@
 			isa = PBXGroup;
 			children = (
 				62FD7E672E4ACA6B00EFE083 /* EmojiDiary.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8BB902932E4C2425001D49F5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -97,6 +105,12 @@
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 62FD7E682E4ACA6B00EFE083 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8BB902932E4C2425001D49F5 /* Products */;
+					ProjectRef = 8BB902922E4C2425001D49F5 /* EmojiDiary.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				62FD7E662E4ACA6A00EFE083 /* EmojiDiary */,
