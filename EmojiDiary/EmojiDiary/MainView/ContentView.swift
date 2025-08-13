@@ -29,12 +29,13 @@ struct ContentView: View {
                 }
                 
                 
-                DatePicker("", selection: $date, displayedComponents: [.date]) //달력
+                DatePicker("", selection: $date, in: ...Date(), displayedComponents: [.date]) //달력
                     .datePickerStyle(.graphical)
                     .environment(\.locale, Locale(identifier: "ko")) //yyyy mm 부분 영어 -> 한글
-                    .padding()
+                    .padding(.horizontal)
                 Spacer()
             }
+            
                 .tabItem {
                     Image(systemName: "calendar")
                     Text("달력")
