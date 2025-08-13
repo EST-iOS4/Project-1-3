@@ -34,6 +34,9 @@ struct ContentView: View {
                         .environment(\.locale, Locale(identifier: "ko")) //yyyy mm 부분 영어 -> 한글
                         .padding(.horizontal)
                     
+                    
+                    Text("선택된 날짜: \(getDate)")
+                    
                     Spacer()
                 }
                     .tabItem {
