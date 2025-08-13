@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var date = Date()
     
     var body: some View {
+        // 첫 번째 화면
         TabView {
             VStack() {
                 Text("Project Name") //Project 제목
