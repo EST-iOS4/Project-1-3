@@ -9,33 +9,49 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var date = Date()
+    @State private var selectedDate = Date()
+    @State private var navigationToDetail = false
     
     var body: some View {
         // 첫 번째 화면
-        TabView {
-            VStack() {
-                Text("Project Name") //Project 제목
-                    .font(.headline)
-                    .fontWeight(.bold)
-                
-                DatePicker("", selection: $date, displayedComponents: [.date]) //달력
-                    .datePickerStyle(.graphical)
-                    .environment(\.locale, Locale(identifier: "ko")) //yyyy mm 부분 영어 -> 한글
-                    .padding()
-                Spacer()
+        NavigationStack {
+            TabView {
+                VStack() {
+                    Text("EmojiDiary") //Project 제목
+                        .font(.headline)
+                        .fontWeight(.bold)
+                    
+                    DatePicker("", selection: $date, displayedComponents: [.date]) //달력
+                        .datePickerStyle(.graphical)
+                        .environment(\.locale, Locale(identifier: "ko")) //yyyy mm 부분 영어 -> 한글
+                        .padding()
+                        .onChange(of: date) { oldValue, newValue in
+                            selectedDate = newValue
+                            navigationToDetail = true
+                        }
+                        .navigationDestination(isPresented: $navigationToDetail) {
+                            CreateView(getDate: $date)
+                        }
+                        
+                    Spacer()
+                }
+                    .tabItem {
+                        Image(systemName: "calendar")
+                        Text("달력")
+                    }
+                    
+                // 두 번째 탭
+                ListView()
+                    .tabItem {
+                        Image(systemName: "chart.pie")
+                        Text("통계")
+                    }
             }
-                .tabItem {
-                    Image(systemName: "calendar")
-                    Text("달력")
-                }
-                
-            // 두 번째 탭
-            Text("두 번째 화면")
-                .tabItem {
-                    Image(systemName: "chart.pie")
-                    Text("통계")
-                }
         }
+        .navigationDestination(isPresented: $navigationToDetail) {
+            CreateView(getDate: $selectedDate)
+        }
+        
     }
 }
 

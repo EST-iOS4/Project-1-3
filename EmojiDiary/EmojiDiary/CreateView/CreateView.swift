@@ -8,8 +8,14 @@ import SwiftUI
 
 struct CreateView: View {
   @State private var comment: String = "" //일기 본문내용
-  @Binding var getDate: String // 외부에서 받아오는 날짜
+  @Binding var getDate: Date // 외부에서 받아오는 날짜
   
+    private var titleFormatter: DateFormatter {
+        let f = DateFormatter()
+        f.locale = Locale(identifier: "ko_KR")
+        f.dateFormat = "yyyy년 M월 d일"
+        return f
+    }
   
   var body: some View {
     // 상단 바
@@ -72,13 +78,52 @@ struct CreateView: View {
         // 뒤로가기 버튼
         ToolbarItem(placement: .navigationBarLeading){
           Button(action: {print("뒤로 갔습니다")}){
-            Image(systemName:"chevron.backward")
+            
           }
+          Spacer()
         }
-        // 선택한 날짜
-        ToolbarItem(placement: .principal){
-          Text(getDate)
-            .font(.system(size: 20))
+        
+        
+        
+      }
+    }
+    .padding()
+    .navigationTitle(titleFormatter.string(from: getDate))
+    .navigationBarTitleDisplayMode(.inline)
+    
+    // 이모티콘 고르기
+    HStack{
+      Text("🩷")
+        .font(.system(size: 45))
+      Text("💔")
+        .font(.system(size: 45))
+      Text("💗")
+        .font(.system(size: 45))
+    }
+    
+    // 일기 작성란
+    VStack {
+      ZStack {
+        TextEditor(text: $comment)
+          .frame(width: 350, height: 400)
+          .padding()
+          .autocorrectionDisabled()
+          .overlay(
+            RoundedRectangle(cornerRadius: 20)
+              .stroke(Color.gray)
+              .background(.yellow.opacity(0.1))
+          )
+          .font(.body)
+        
+        
+        //가이드 텍스트 표시
+        if comment.isEmpty {
+          VStack {
+            Text("일기를 작성하세요.")
+              .padding()
+              .opacity(0.35)
+          }
+
         }
       }
     }
@@ -89,7 +134,7 @@ struct CreateView: View {
 
 
 
-#Preview {
-  CreateView(getDate: .constant("2025-08-12")) //임시값
-}
+//#Preview {
+//  CreateView(getDate)
+//}
 
