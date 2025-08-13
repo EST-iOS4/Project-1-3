@@ -92,6 +92,6 @@ struct CreateView: View {
 }
 
 
-//#Preview {
-//    CreateView(getDate: Date()) //임시값
-//}
+#Preview {
+  CreateView(getDate)
+}
