@@ -9,10 +9,10 @@ import SwiftUI
 struct EditView: View {
   @State private var comment: String = "" //일기 본문내용
   @Binding var getDate: Date // 외부에서 받아오는 날짜
-  @State private var UpSheet: Bool = false
-  @State private var Alert: Bool = false
+  @State private var upSheet: Bool = false
+  @State private var alert: Bool = false
   @FocusState private var isTextEditorFocused: Bool // 키보드 생성
-  @State var FeelEmoji: String = "" // 선택한 이모티콘 저장
+  @State var feelEmoji: String = "" // 선택한 이모티콘 저장
   
   
   private var titleFormatter: DateFormatter {
@@ -28,7 +28,7 @@ struct EditView: View {
     VStack(spacing: 0){
       Spacer(minLength: 50)
       // 이모티콘 선택 뷰
-      SelectButtonView(FeelEmoji: $FeelEmoji, emojis: emojis)
+      SelectButtonView(feelEmoji: $feelEmoji, emojis: emojis)
       
       // TODO: 글자수제한 추가?
       // 일기 작성란
@@ -80,16 +80,16 @@ struct EditView: View {
     .navigationBarTitleDisplayMode(.inline)
     .toolbar{
       ToolbarItem(placement: .topBarTrailing){
-        Button(action: {UpSheet = true}){
+        Button(action: {upSheet = true}){
           Image(systemName: "ellipsis")
         } //actionsheet -> confirmationDialog로 변경
-        .confirmationDialog("타이틀", isPresented: $UpSheet){
+        .confirmationDialog("타이틀", isPresented: $upSheet){
           Button("수정", action: {})
           Button("삭제"){
             // TODO: 메세지추가
-            Alert = true
+            alert = true
           }
-          .alert("정말 삭제하시겠습니까?", isPresented: $Alert){
+          .alert("정말 삭제하시겠습니까?", isPresented: $alert){
             Button("네"){/*데이터삭제*/}
           }
         }
@@ -119,7 +119,7 @@ struct EditView: View {
     
     // 이모티콘 버튼 뷰
     struct SelectButtonView: View {
-      @Binding var FeelEmoji: String // CreateView와 양방향 바인딩
+      @Binding var feelEmoji: String // CreateView와 양방향 바인딩
       let emojis: [EditView.EmojisData]
       
       var body: some View{
@@ -129,19 +129,19 @@ struct EditView: View {
           HStack(spacing: 20){
             ForEach(emojis, id: \.id){ EmojisData in
               Button(action: {
-                FeelEmoji = EmojisData.emoji
+                feelEmoji = EmojisData.emoji
               })
               {
                 Image(systemName: EmojisData.emoji)
                 // 선택한 이모티콘만 스타일 변화
                 // FIXME: 구름 이모티콘 선택시 모양 이상함. 수정예정
-                  .font(.system(size: FeelEmoji == EmojisData.emoji ? 60 : 50))
-                  .foregroundStyle(FeelEmoji == EmojisData.emoji ? .yellow : .black)
+                  .font(.system(size: feelEmoji == EmojisData.emoji ? 60 : 50))
+                  .foregroundStyle(feelEmoji == EmojisData.emoji ? .yellow : .black)
               }
               .overlay(
                 RoundedRectangle(cornerSize: .init(width: 50, height: 50))
                   .stroke(
-                    FeelEmoji == EmojisData.emoji ? Color.yellow.opacity(0.3) : Color.white
+                    feelEmoji == EmojisData.emoji ? Color.yellow.opacity(0.3) : Color.white
                   )
               )
             }
