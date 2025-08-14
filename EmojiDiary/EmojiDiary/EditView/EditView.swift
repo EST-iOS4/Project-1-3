@@ -33,7 +33,6 @@ struct EditView: View {
       
       // TODO: 글자수제한 추가?
       // 일기 작성란
-      
       ZStack{
         TextEditor(text: $comment)
           .frame(width: 350, height: 460)
