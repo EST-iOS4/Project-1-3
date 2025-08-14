@@ -124,6 +124,7 @@ struct SelectButtonView: View {
           {
             Image(systemName: EmojisData.emoji)
             // 선택한 이모티콘만 스타일 변화
+            // FIXME: 구름 이모티콘 선택시 모양 이상함. 수정예정
               .font(.system(size: FeelEmoji == EmojisData.emoji ? 60 : 50))
               .foregroundStyle(FeelEmoji == EmojisData.emoji ? .yellow : .black)
           }
