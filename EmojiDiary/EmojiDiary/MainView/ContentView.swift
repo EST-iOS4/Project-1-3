@@ -19,7 +19,7 @@ struct ContentView: View {
             TabView {
                 VStack() {
                     ZStack {
-                        Text("EmojiDiary") //Project 제목
+                        Text("날짜를 눌러 오늘의 이야기를 남겨보세요")
                             .font(.headline)
                             .fontWeight(.bold)
                         HStack {
