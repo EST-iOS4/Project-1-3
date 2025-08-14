@@ -138,15 +138,16 @@ struct EditView: View {
               {
                 Image(systemName: EmojisData.emoji)
                 // 선택한 이모티콘만 스타일 변화
-                // FIXME: 구름 이모티콘 선택시 모양 이상함. 수정예정
                   .font(.system(size: feelEmoji == EmojisData.emoji ? 60 : 50))
                   .foregroundStyle(feelEmoji == EmojisData.emoji ? .yellow : .black)
               }
               .overlay(
-                RoundedRectangle(cornerSize: .init(width: 50, height: 50))
+                Circle()
                   .stroke(
-                    feelEmoji == EmojisData.emoji ? Color.yellow.opacity(0.3) : Color.white
+                    feelEmoji == EmojisData.emoji ? Color.yellow.opacity(0.3) : Color.white,
+                    lineWidth : 3
                   )
+                  .frame(width: 100, height: 100)
               )
             }
           }
