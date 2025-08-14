@@ -19,6 +19,21 @@ struct CreateView: View {
         return f
     }
   
+  // 이모티콘 데이터
+  struct EmojisData{
+    let id: Int = UUID().hashValue
+    let emoji: String
+    let name: String
+  }
+  // emojis: 이모티콘 배열
+  let emojis: [EmojisData] = [
+    EmojisData(emoji:"sun.max",name:"기분 좋음"),
+    EmojisData(emoji:"cloud",name:"그저 그럼"),
+    EmojisData(emoji:"cloud.rain",name:"기분 안좋음"),
+    EmojisData(emoji:"cloud.bolt",name:"개열받음")
+  ]
+  
+  
   var body: some View {
     // 상단 바
 
@@ -38,21 +53,33 @@ struct CreateView: View {
     .navigationBarTitleDisplayMode(.inline)
     
     
+    
+    
+    
+    
     // 이모티콘 고르기
-    
-    let emojis = ["🩷","💔","💗"]
-    
-    HStack(spacing: 20){
-      ForEach(emojis, id: \.self){ emojis in
-        Button(action: {
-          FeelEmoji = emojis
-        })
-        {
-          Text(emojis)
-            .font(.system(size: 50))
+    VStack{
+      HStack(spacing: 20){
+        ForEach(emojis, id: \.id){ EmojisData in
+          Button(action: {
+            FeelEmoji = EmojisData.emoji
+          })
+          {
+            Image(systemName: EmojisData.emoji)
+              // 선택한 버튼 스타일 변화
+              .font(.system(size: FeelEmoji == EmojisData.emoji ? 60 : 50))
+              .foregroundStyle(FeelEmoji == EmojisData.emoji ? .yellow : .black)
+          }
+          .overlay(
+            RoundedRectangle(cornerSize: .init(width: 50, height: 50))
+              .stroke(
+                FeelEmoji == EmojisData.emoji ? Color.yellow.opacity(0.3) : Color.white
+              )
+            )
         }
       }
     }
+    .padding()
     
     
     
@@ -108,7 +135,7 @@ struct CreateView: View {
 
 
 
-// FIXME: 프리뷰오류, 데이터타입 String으로 변환요구
-// #Previw {
-//  EditView(getDate: .constant(Date()))
-//}
+
+#Preview {
+    CreateView(getDate: .constant(Date()))
+}
