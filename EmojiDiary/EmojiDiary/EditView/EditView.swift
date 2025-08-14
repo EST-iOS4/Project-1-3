@@ -25,38 +25,56 @@ struct EditView: View {
   
   var body: some View {
     
-    VStack{
+    VStack(spacing: 0){
+      Spacer(minLength: 50)
       // 이모티콘 선택 뷰
       SelectButtonView(FeelEmoji: $FeelEmoji, emojis: emojis)
       
       // TODO: 글자수제한 추가?
       // 일기 작성란
-      VStack{
-        ZStack {
-          TextEditor(text: $comment)
-            .frame(width: 350, height: 400)
+      
+      ZStack{
+        TextEditor(text: $comment)
+          .frame(width: 350, height: 460)
+          .lineSpacing(5)
+          .padding()
+          .autocorrectionDisabled()
+          .focused($isTextEditorFocused)
+          .overlay(
+            RoundedRectangle(cornerRadius: 20)
+              .stroke(Color.gray.opacity(0.3))
+              .fill(.gray.opacity(0.1))
+          )
+          .font(.body)
+          .onTapGesture {
+            isTextEditorFocused = true
+          }
+        
+        
+        //가이드 텍스트 표시
+        if comment.isEmpty {
+          Text("오늘 하루는 어떠셨나요?")
             .padding()
-            .autocorrectionDisabled()
-            .focused($isTextEditorFocused)
-            .overlay(
-              RoundedRectangle(cornerRadius: 20)
-                .stroke(Color.gray.opacity(0.3))
-                .fill(.yellow.opacity(0.1))
-            )
-            .font(.body)
-            .onTapGesture {
-              isTextEditorFocused = true
-            }
-          //가이드 텍스트 표시
-          if comment.isEmpty {
-            Text("일기를 작성하세요.")
-              .padding()
-              .opacity(0.35)
+            .opacity(0.5)
+        }
+        Divider()
+          .background(Color.gray.opacity(0.3))
+                      .padding(.horizontal, 25)  // 좌우 여백을 둬서 전체 너비보다 짧게
+                      .padding(.top, 400)
+        // 글자수 카운터
+        // TODO: 글자수 제한 구현 (추후에 결정)
+        VStack {
+          Spacer()
+          HStack {
+            Spacer()
+            Text("\(comment.count)")
+              .opacity(0.5)
+              .padding([.trailing, .bottom], 35)
+              .padding(.bottom, 40)
           }
         }
-        .padding(.all)
       }
-      .padding()
+      Spacer()
     }
     .navigationTitle(titleFormatter.string(from: getDate))
     .navigationBarTitleDisplayMode(.inline)
@@ -64,7 +82,6 @@ struct EditView: View {
       ToolbarItem(placement: .topBarTrailing){
         Button(action: {UpSheet = true}){
           Image(systemName: "ellipsis")
-          
         } //actionsheet -> confirmationDialog로 변경
         .confirmationDialog("타이틀", isPresented: $UpSheet){
           Button("수정", action: {})
@@ -76,7 +93,6 @@ struct EditView: View {
             Button("네"){/*데이터삭제*/}
           }
         }
-        .padding()
       }
     }
   }
@@ -131,7 +147,6 @@ struct EditView: View {
             }
           }
         }
-        .padding()
       }
     }
 
