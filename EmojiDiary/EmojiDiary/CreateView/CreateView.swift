@@ -12,31 +12,16 @@ struct CreateView: View {
   @FocusState private var isTextEditorFocused: Bool // 키보드 생성
   @State var FeelEmoji: String = "" // 선택한 이모티콘 저장
   
-    private var titleFormatter: DateFormatter {
-        let f = DateFormatter()
-        f.locale = Locale(identifier: "ko_KR")
-        f.dateFormat = "yyyy년 M월 d일"
-        return f
-    }
-  
-  // 이모티콘 데이터
-  struct EmojisData{
-    let id: Int = UUID().hashValue
-    let emoji: String
-    let name: String
+  private var titleFormatter: DateFormatter {
+    let f = DateFormatter()
+    f.locale = Locale(identifier: "ko_KR")
+    f.dateFormat = "yyyy년 M월 d일"
+    return f
   }
-  // emojis: 이모티콘 배열
-  let emojis: [EmojisData] = [
-    EmojisData(emoji:"sun.max",name:"기분 좋음"),
-    EmojisData(emoji:"cloud",name:"그저 그럼"),
-    EmojisData(emoji:"cloud.rain",name:"기분 안좋음"),
-    EmojisData(emoji:"cloud.bolt",name:"개열받음")
-  ]
   
   
   var body: some View {
     // 상단 바
-
     VStack(spacing: 0) {
       ZStack {
         //뒤로가기 버튼
@@ -53,37 +38,8 @@ struct CreateView: View {
     .navigationBarTitleDisplayMode(.inline)
     
     
-    
-    
-    
-    
-    // 이모티콘 고르기
-    VStack{
-      HStack(spacing: 20){
-        ForEach(emojis, id: \.id){ EmojisData in
-          Button(action: {
-            FeelEmoji = EmojisData.emoji
-          })
-          {
-            Image(systemName: EmojisData.emoji)
-              // 선택한 버튼 스타일 변화
-              .font(.system(size: FeelEmoji == EmojisData.emoji ? 60 : 50))
-              .foregroundStyle(FeelEmoji == EmojisData.emoji ? .yellow : .black)
-          }
-          .overlay(
-            RoundedRectangle(cornerSize: .init(width: 50, height: 50))
-              .stroke(
-                FeelEmoji == EmojisData.emoji ? Color.yellow.opacity(0.3) : Color.white
-              )
-            )
-        }
-      }
-    }
-    .padding()
-    
-    
-    
-    
+    // 이모티콘 선택 뷰
+    SelectButtonView(FeelEmoji: $FeelEmoji, emojis: emojis)
     
     
     // TODO: 글자수제한 추가?
@@ -104,7 +60,7 @@ struct CreateView: View {
           .onTapGesture {
             isTextEditorFocused = true
           }
-
+        
         
         
         //가이드 텍스트 표시
@@ -131,11 +87,70 @@ struct CreateView: View {
       .padding(.top, 15)
     }
   }
+  
+  // EmojisData 이모티콘 데이터 형식
+  struct EmojisData{
+    let id: Int = UUID().hashValue
+    let emoji: String
+    let name: String
+  }
+
+  // emojis: 이모티콘 배열
+  let emojis: [EmojisData] = [
+    EmojisData(emoji:"sun.max",name:"기분 좋음"),
+    EmojisData(emoji:"cloud",name:"그저 그럼"),
+    EmojisData(emoji:"cloud.rain",name:"기분 안좋음"),
+    EmojisData(emoji:"cloud.bolt",name:"개열받음")
+  ]
 }
 
 
 
 
+// 이모티콘 버튼 뷰
+struct SelectButtonView: View {
+  @Binding var FeelEmoji: String // CreateView와 양방향 바인딩
+  let emojis: [CreateView.EmojisData]
+  
+  var body: some View{
+    
+    // 이모티콘 고르기
+    VStack{
+      HStack(spacing: 20){
+        ForEach(emojis, id: \.id){ EmojisData in
+          Button(action: {
+            FeelEmoji = EmojisData.emoji
+          })
+          {
+            Image(systemName: EmojisData.emoji)
+            // 선택한 이모티콘만 스타일 변화
+              .font(.system(size: FeelEmoji == EmojisData.emoji ? 60 : 50))
+              .foregroundStyle(FeelEmoji == EmojisData.emoji ? .yellow : .black)
+          }
+          .overlay(
+            RoundedRectangle(cornerSize: .init(width: 50, height: 50))
+              .stroke(
+                FeelEmoji == EmojisData.emoji ? Color.yellow.opacity(0.3) : Color.white
+              )
+          )
+        }
+      }
+    }
+    .padding()
+  }
+  
+}
+
+
+
+
+
+
+
+
+
+
+
 #Preview {
-    CreateView(getDate: .constant(Date()))
+  CreateView(getDate: .constant(Date()))
 }
