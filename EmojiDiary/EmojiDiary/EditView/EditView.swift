@@ -13,6 +13,7 @@ struct EditView: View {
   @State private var alert: Bool = false
   @FocusState private var isTextEditorFocused: Bool // 키보드 생성
   @State var feelEmoji: String = "" // 선택한 이모티콘 저장
+  private let backGroundColor = Color.gray.opacity(0.01) // 백그라운드컬러 통일
   
   
   private var titleFormatter: DateFormatter {
@@ -26,7 +27,7 @@ struct EditView: View {
   var body: some View {
     
     VStack(spacing: 0){
-      Spacer(minLength: 50)
+      Spacer(minLength: 70)
       // 이모티콘 선택 뷰
       SelectButtonView(feelEmoji: $feelEmoji, emojis: emojis)
       
@@ -43,7 +44,7 @@ struct EditView: View {
           .overlay(
             RoundedRectangle(cornerRadius: 20)
               .stroke(Color.gray.opacity(0.3))
-              .fill(.gray.opacity(0.1))
+              .fill(backGroundColor)
           )
           .font(.body)
           .onTapGesture {
@@ -78,6 +79,8 @@ struct EditView: View {
     }
     .navigationTitle(titleFormatter.string(from: getDate))
     .navigationBarTitleDisplayMode(.inline)
+    .background(backGroundColor.ignoresSafeArea(.all, edges: .top))
+    .toolbarBackgroundVisibility(.visible, for: .navigationBar)
     .toolbar{
       ToolbarItem(placement: .topBarTrailing){
         Button(action: {upSheet = true}){
