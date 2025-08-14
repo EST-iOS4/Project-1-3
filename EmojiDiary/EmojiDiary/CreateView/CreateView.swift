@@ -10,6 +10,7 @@ struct CreateView: View {
   @State private var comment: String = "" //일기 본문내용
   @Binding var getDate: Date // 외부에서 받아오는 날짜
   @FocusState private var isTextEditorFocused: Bool // 키보드 생성
+  @State var FeelEmoji: String = "" // 선택한 이모티콘 저장
   
     private var titleFormatter: DateFormatter {
         let f = DateFormatter()
@@ -36,16 +37,27 @@ struct CreateView: View {
     .navigationTitle(titleFormatter.string(from: getDate))
     .navigationBarTitleDisplayMode(.inline)
     
-    // FIXME: ForEach로 바꿔보는건?
+    
     // 이모티콘 고르기
-    HStack{
-      Button("🩷", action: {})
-        .font(.system(size: 50))
-      Button("💔", action: {})
-        .font(.system(size: 50))
-      Button("💗", action: {})
-        .font(.system(size: 50))
+    
+    let emojis = ["🩷","💔","💗"]
+    
+    HStack(spacing: 20){
+      ForEach(emojis, id: \.self){ emojis in
+        Button(action: {
+          FeelEmoji = emojis
+        })
+        {
+          Text(emojis)
+            .font(.system(size: 50))
+        }
+      }
     }
+    
+    
+    
+    
+    
     
     // TODO: 글자수제한 추가?
     // 일기 작성란
