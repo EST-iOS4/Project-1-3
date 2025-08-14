@@ -9,6 +9,23 @@ import SwiftUI
 
 struct SettingView: View {
     var body: some View {
-        Text("Setting View")
+        VStack {
+            Text("Setting")
+                .font(.headline)
+                .fontWeight(.bold)
+            Spacer()
+            ZStack {
+                Text("Coming Soon")
+                    .font(.title)
+                    .foregroundColor(.black)
+                    
+            }
+            Spacer()
+        }
+        
     }
+}
+
+#Preview {
+    SettingView()
 }
