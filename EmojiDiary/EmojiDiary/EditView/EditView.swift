@@ -84,13 +84,17 @@ struct EditView: View {
           Image(systemName: "ellipsis")
         } //actionsheet -> confirmationDialog로 변경
         .confirmationDialog("타이틀", isPresented: $upSheet){
-          Button("수정", action: {})
+          Button("수정"){
+            //수정기능구현
+          }
           Button("삭제"){
-            // TODO: 메세지추가
             alert = true
           }
           .alert("정말 삭제하시겠습니까?", isPresented: $alert){
-            Button("네"){/*데이터삭제*/}
+            Button("네",role: .destructive){
+              // 삭제기능 구현
+            }
+            Button("아니오", role: .cancel){}
           }
         }
       }
