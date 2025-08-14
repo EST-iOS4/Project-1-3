@@ -61,7 +61,7 @@ struct EditView: View {
           .background(Color.gray.opacity(0.3))
                       .padding(.horizontal, 25)  // 좌우 여백을 둬서 전체 너비보다 짧게
                       .padding(.top, 400)
-        // 글자수 카운터
+        // 글자수 카운터(여백포함)
         // TODO: 글자수 제한 구현 (추후에 결정)
         VStack {
           Spacer()
