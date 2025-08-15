@@ -11,6 +11,7 @@ struct CreateView: View {
   @Binding var getDate: Date // 외부에서 받아오는 날짜
   @FocusState private var isTextEditorFocused: Bool // 키보드 생성
   
+  
     private var titleFormatter: DateFormatter {
         let f = DateFormatter()
         f.locale = Locale(identifier: "ko_KR")
