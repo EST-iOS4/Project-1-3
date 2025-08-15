@@ -26,11 +26,23 @@ struct CreateView: View {
       ZStack {
         //뒤로가기 버튼
         HStack {
+          Spacer()
+          Button(action: {print("일기저장")}) {
+            Image(systemName: "plus.circle.fill")
+              .font(.system(size: 45))
+          }
+        }
+        .padding(.trailing, 25)
+      }
+      
+      // 상단바
+      .toolbar{
+        // 뒤로가기 버튼
+        ToolbarItem(placement: .navigationBarLeading){
           Button(action: {print("뒤로 갔습니다")}){
           }
           Spacer()
         }
-        .padding(.leading,30)
       }
     }
     .padding()
@@ -70,22 +82,11 @@ struct CreateView: View {
               .padding()
               .opacity(0.35)
           }
+
         }
       }
     }
     
-    
-    
-    //저장 버튼
-    HStack {
-      Spacer()
-      Button(action: {print("일기저장")}) {
-        Image(systemName: "plus.circle.fill")
-          .font(.system(size: 45))
-      }
-      .padding(.trailing, 25)
-      .padding(.top, 15)
-    }
   }
   
   // EmojisData 이모티콘 데이터 형식
@@ -103,9 +104,6 @@ struct CreateView: View {
     EmojisData(emoji:"cloud.bolt",name:"개열받음")
   ]
 }
-
-
-
 
 // 이모티콘 버튼 뷰
 struct SelectButtonView: View {
