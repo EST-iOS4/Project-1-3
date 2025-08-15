@@ -22,15 +22,74 @@ struct CreateView: View {
   
   var body: some View {
     // 상단 바
+<<<<<<< HEAD
     VStack(spacing: 0) {
       ZStack {
         //뒤로가기 버튼
+=======
+    NavigationView {
+      
+      VStack(spacing: 35){
+        
+        // 이모티콘 고르기
+       
+          HStack{
+            Button("🩷", action: {})
+              .font(.system(size: 50))
+            Button("💔", action: {})
+              .font(.system(size: 50))
+            Button("💗", action: {})
+              .font(.system(size: 50))
+          }
+        
+        
+        
+        // 일기 작성란
+        VStack {
+          ZStack {
+            TextEditor(text: $comment)
+              .frame(width: 350, height: 400)
+              .padding()
+              .autocorrectionDisabled()
+              .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                  .stroke(Color.gray)
+                  .fill(.yellow.opacity(0.1))
+              )
+              .font(.body)
+            
+            
+            //가이드 텍스트 표시
+            if comment.isEmpty {
+              VStack {
+                Text("일기를 작성하세요.")
+                  .padding()
+                  .opacity(0.35)
+              }
+            }
+          }
+        }
+        
+        //저장 버튼
+>>>>>>> 9fe7b3b89350ba50d54fc02ef7c665340ffc0de8
         HStack {
+          Spacer()
+          Button(action: {print("일기저장")}) {
+            Image(systemName: "plus.circle.fill")
+              .font(.system(size: 45))
+          }
+        }
+        .padding(.trailing, 25)
+      }
+      
+      // 상단바
+      .toolbar{
+        // 뒤로가기 버튼
+        ToolbarItem(placement: .navigationBarLeading){
           Button(action: {print("뒤로 갔습니다")}){
           }
           Spacer()
         }
-        .padding(.leading,30)
       }
     }
     .padding()
@@ -70,24 +129,14 @@ struct CreateView: View {
               .padding()
               .opacity(0.35)
           }
+
         }
       }
     }
     
-    
-    
-    //저장 버튼
-    HStack {
-      Spacer()
-      Button(action: {print("일기저장")}) {
-        Image(systemName: "plus.circle.fill")
-          .font(.system(size: 45))
-      }
-      .padding(.trailing, 25)
-      .padding(.top, 15)
-    }
   }
   
+<<<<<<< HEAD
   // EmojisData 이모티콘 데이터 형식
   struct EmojisData{
     let id: Int = UUID().hashValue
