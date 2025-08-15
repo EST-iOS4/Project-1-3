@@ -98,7 +98,12 @@ iOSInjectionProject/
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
+<<<<<<< HEAD
 # End of https://www.toptal.com/developers/gitignore/api/xcode,swift
 .DS_Store
 .DS_Store
 EmojiDiary/.DS_Store
+=======
+# End of https://www.toptal.com/developers/gitignore/api/xcode,swift.DS_Store
+.DS_Store
+>>>>>>> origin/Feature
