@@ -25,11 +25,11 @@ struct CreateView: View {
   var body: some View {
     
     VStack(spacing: 0){
-      Spacer(minLength: 110)
+      Spacer(minLength: 60)
       // 이모티콘 선택 뷰
       CreateSelectButtonView(feelEmoji: $feelEmoji, emojis: emojis)
       
-      Spacer(minLength: 50)
+      Spacer(minLength: 40)
       
       // TODO: 글자수제한 추가?
       // 일기 작성란
@@ -76,7 +76,7 @@ struct CreateView: View {
             Text("\(comment.count) 자")
               .opacity(0.5)
               .padding(.horizontal, 40)
-              .padding(.vertical, 25)
+              .padding(.vertical, 15)
           }
         }
       }
@@ -89,9 +89,11 @@ struct CreateView: View {
         // TODO: 저장버튼 누르면 메인뷰로 돌아가기
         Button(action: {print("일기저장")}) {
           Image(systemName: "plus.circle.fill")
-            .font(.system(size: 45))
+            .font(.system(size: 50))
+            .foregroundStyle(Color.yellow)
         }
         .padding([.horizontal, .vertical])
+        .padding(.trailing)
       }
       
     }
