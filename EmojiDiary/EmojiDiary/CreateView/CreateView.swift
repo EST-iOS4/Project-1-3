@@ -25,9 +25,11 @@ struct CreateView: View {
   var body: some View {
     
     VStack(spacing: 0){
-      Spacer(minLength: 70)
+      Spacer(minLength: 110)
       // 이모티콘 선택 뷰
       CreateSelectButtonView(feelEmoji: $feelEmoji, emojis: emojis)
+      
+      Spacer(minLength: 50)
       
       // TODO: 글자수제한 추가?
       // 일기 작성란
@@ -55,10 +57,14 @@ struct CreateView: View {
             .padding()
             .opacity(0.5)
         }
-        Divider()
-          .background(Color.gray.opacity(0.3))
-                      .padding(.horizontal, 25)  // 좌우 여백을 둬서 전체 너비보다 짧게
-                      .padding(.top, 400)
+        
+        
+        //구분자
+        Rectangle()
+          .fill(Color.gray.opacity(0.3))
+          .frame(height: 1)
+          .padding(.horizontal, 25)
+          .padding(.top, 400)
         
         
         // 글자수 카운터(여백포함)
@@ -75,17 +81,19 @@ struct CreateView: View {
         }
       }
       Spacer()
+      
+      
       //저장 버튼
-          HStack {
-            Spacer()
-            // TODO: 저장버튼 누르면 메인뷰로 돌아가기
-            Button(action: {print("일기저장")}) {
-              Image(systemName: "plus.circle.fill")
-                .font(.system(size: 45))
-            }
-            .padding([.horizontal, .vertical])
-          }
-        
+      HStack {
+        Spacer()
+        // TODO: 저장버튼 누르면 메인뷰로 돌아가기
+        Button(action: {print("일기저장")}) {
+          Image(systemName: "plus.circle.fill")
+            .font(.system(size: 45))
+        }
+        .padding([.horizontal, .vertical])
+      }
+      
     }
     .navigationTitle(titleFormatter.string(from: getDate))
     .navigationBarTitleDisplayMode(.inline)
@@ -94,58 +102,58 @@ struct CreateView: View {
   }
   
   
-      // EmojisData 이모티콘 데이터 형식
-      struct EmojisData{
-        let id: Int = UUID().hashValue
-        let emoji: String
-        let name: String
-      }
-      
-      // emojis: 이모티콘 배열
-      let emojis: [EmojisData] = [
-        EmojisData(emoji:"sun.max",name:"기분 좋음"),
-        EmojisData(emoji:"cloud",name:"그저 그럼"),
-        EmojisData(emoji:"cloud.rain",name:"기분 안좋음"),
-        EmojisData(emoji:"cloud.bolt",name:"개열받음")
-      ]
-    }
+  // EmojisData 이모티콘 데이터 형식
+  struct EmojisData{
+    let id: Int = UUID().hashValue
+    let emoji: String
+    let name: String
+  }
+  
+  // emojis: 이모티콘 배열
+  let emojis: [EmojisData] = [
+    EmojisData(emoji:"sun.max",name:"기분 좋음"),
+    EmojisData(emoji:"cloud",name:"그저 그럼"),
+    EmojisData(emoji:"cloud.rain",name:"기분 안좋음"),
+    EmojisData(emoji:"cloud.bolt",name:"개열받음")
+  ]
+}
+
+
+
+
+// 이모티콘 버튼 뷰
+struct CreateSelectButtonView: View {
+  @Binding var feelEmoji: String // CreateView와 양방향 바인딩
+  let emojis: [CreateView.EmojisData]
+  
+  var body: some View{
     
-    
-    
-    
-    // 이모티콘 버튼 뷰
-    struct CreateSelectButtonView: View {
-      @Binding var feelEmoji: String // CreateView와 양방향 바인딩
-      let emojis: [CreateView.EmojisData]
-      
-      var body: some View{
-        
-        // 이모티콘 고르기
-        VStack{
-          HStack(spacing: 20){
-            ForEach(emojis, id: \.id){ EmojisData in
-              Button(action: {
-                feelEmoji = EmojisData.emoji
-              })
-              {
-                Image(systemName: EmojisData.emoji)
-                // 선택한 이모티콘만 스타일 변화
-                  .font(.system(size: feelEmoji == EmojisData.emoji ? 60 : 50))
-                  .foregroundStyle(feelEmoji == EmojisData.emoji ? .yellow : .black)
-              }
-              .overlay(
-                Circle()
-                  .stroke(
-                    feelEmoji == EmojisData.emoji ? Color.yellow.opacity(0.3) : Color.white,
-                    lineWidth : 3
-                  )
-                  .frame(width: 100, height: 100)
-              )
-            }
+    // 이모티콘 고르기
+    VStack{
+      HStack(spacing: 20){
+        ForEach(emojis, id: \.id){ EmojisData in
+          Button(action: {
+            feelEmoji = EmojisData.emoji
+          })
+          {
+            Image(systemName: EmojisData.emoji)
+            // 선택한 이모티콘만 스타일 변화
+              .font(.system(size: feelEmoji == EmojisData.emoji ? 60 : 50))
+              .foregroundStyle(feelEmoji == EmojisData.emoji ? .yellow : .black)
           }
+          .overlay(
+            Circle()
+              .stroke(
+                feelEmoji == EmojisData.emoji ? Color.yellow.opacity(0.3) : Color.white,
+                lineWidth : 3
+              )
+              .frame(width: 100, height: 100)
+          )
         }
       }
     }
+  }
+}
 
 
 
