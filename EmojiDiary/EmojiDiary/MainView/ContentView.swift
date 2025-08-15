@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  EmojiDiary
-//
-//  Created by 서정원 on 8/12/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
@@ -14,59 +7,59 @@ struct ContentView: View {
     @State private var navigationToDetail = false
     
     var body: some View {
-        // 첫 번째 화면
-        NavigationStack {
-            TabView {
+        TabView {
+            NavigationStack {
                 VStack() {
-                    ZStack {
-                        Text("날짜를 눌러 오늘의 이야기를 남겨보세요")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                        HStack {
-                            Spacer()
-                            Button {
-                                navigationToSetting = true
-                            } label: {
-                                Image(systemName: "gearshape")
-                                    .imageScale(.large)
-                                    .padding(.trailing)
-                            }
-                            .navigationDestination(isPresented: $navigationToSetting) {
-                                SettingView()
-                            }
+                    HStack {
+                        Spacer()
+                        Button {
+                            navigationToSetting = true
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .imageScale(.large)
+                                .padding(.vertical)
+                                .padding(.horizontal)
                         }
                     }
                     
-                    DatePicker("", selection: $date, in: ...Date(),  displayedComponents: [.date]) //달력
-                        .datePickerStyle(.graphical)
-                        .environment(\.locale, Locale(identifier: "ko")) //yyyy mm 부분 영어 -> 한글
-                        .padding()
-                        .onChange(of: date) { oldValue, newValue in
-                            selectedDate = newValue
-                            navigationToDetail = true
-                        }
-                        .navigationDestination(isPresented: $navigationToDetail) {
-                            CreateView(getDate: $date)
-                        }
+                    Text("날짜를 눌러 오늘의 이야기를 담아보세요")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .padding(.vertical)
+
                     
-                    Spacer()
+                    DatePicker("", selection: $date, in: ...Date(), displayedComponents: [.date])
+                    .datePickerStyle(.graphical)
+                    .environment(\.locale, Locale(identifier: "ko"))
+                    
+                    .onChange(of: date) { _, newValue in
+                        selectedDate = newValue
+                        navigationToDetail = true
+                    }
                 }
                 
-                .tabItem {
-                    Image(systemName: "calendar")
-                    Text("달력")
-                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 
-                // 두 번째 탭
+                .navigationDestination(isPresented: $navigationToSetting) { SettingView() }
+                .navigationDestination(isPresented: $navigationToDetail) { CreateView(getDate: $date) }
+            }
+            
+            .tabItem {
+                Image(systemName: "calendar")
+                Text("달력")
+            }
                 ListView()
-                    .tabItem {
-                        Image(systemName: "chart.pie")
-                        Text("통계")
-                    }
+                    .toolbar(.visible, for: .tabBar)
+            .tabItem {
+                Image(systemName: "chart.pie")
+                Text("통계")
             }
         }
     }
 }
+
+
+
 
 #Preview {
     ContentView()
