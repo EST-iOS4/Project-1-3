@@ -57,11 +57,14 @@ struct EditView: View {
             .padding()
             .opacity(0.5)
         }
+        
+        
         // 구분자
-        Divider()
-          .background(Color.gray.opacity(0.3))
-                      .padding(.horizontal, 25)  // 좌우 여백을 둬서 전체 너비보다 짧게
-                      .padding(.top, 400)
+        Rectangle()
+            .fill(Color.gray.opacity(0.3))
+            .frame(height: 1)
+            .padding(.horizontal, 25)
+            .padding(.top, 400)
         
         
         // 글자수 카운터(여백포함)
@@ -72,8 +75,8 @@ struct EditView: View {
             Spacer()
             Text("\(comment.count) 자")
               .opacity(0.5)
-              .padding(.horizontal, 40)
-              .padding(.vertical, 25)
+              .padding(.bottom, 30)
+              .padding([.horizontal, .vertical], 35)
           }
         }
       }
