@@ -51,26 +51,29 @@ struct EditView: View {
           }
         
         
-        //가이드 텍스트 표시
+        // 가이드 텍스트 표시
         if comment.isEmpty {
           Text("오늘 하루는 어떠셨나요?")
             .padding()
             .opacity(0.5)
         }
+        // 구분자
         Divider()
           .background(Color.gray.opacity(0.3))
                       .padding(.horizontal, 25)  // 좌우 여백을 둬서 전체 너비보다 짧게
                       .padding(.top, 400)
+        
+        
         // 글자수 카운터(여백포함)
         // TODO: 글자수 제한 구현 (추후에 결정)
         VStack {
           Spacer()
           HStack {
             Spacer()
-            Text("\(comment.count)")
+            Text("\(comment.count) 자")
               .opacity(0.5)
-              .padding([.trailing, .bottom], 35)
-              .padding(.bottom, 40)
+              .padding(.horizontal, 40)
+              .padding(.vertical, 25)
           }
         }
       }
