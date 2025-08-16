@@ -13,6 +13,8 @@ struct CreateView: View {
   @State private var feelEmoji = ""
   @FocusState private var isTextEditorFocused: Bool
   @Environment(\.dismiss) private var dismiss
+  @Binding var text: String
+    let size: fontSize
 
   private var titleFormatter: DateFormatter {
     let f = DateFormatter()
@@ -36,7 +38,8 @@ struct CreateView: View {
       SelectButtonView(feelEmoji: $feelEmoji, emojis: emojis)
 
       ZStack(alignment: .topLeading) {
-        TextEditor(text: $comment)
+        TextEditor(text: $text)
+          .font(.system(size: size.fontSize))
           .frame(minHeight: 260)
           .padding()
           .autocorrectionDisabled()
@@ -45,7 +48,6 @@ struct CreateView: View {
             RoundedRectangle(cornerRadius: 16)
               .stroke(Color.gray.opacity(0.3), lineWidth: 1)
           )
-          .font(.body)
 
         if comment.isEmpty {
           Text("일기를 작성하세요.")
@@ -78,8 +80,8 @@ struct CreateView: View {
   }
 }
 
-#Preview {
-  NavigationStack {
-    CreateView(getDate: .constant(Date()))
-  }
-}
+//#Preview {
+//  NavigationStack {
+//    CreateView(getDate: .constant(Date()))
+//  }
+//}

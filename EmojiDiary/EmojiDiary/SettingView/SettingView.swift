@@ -1,27 +1,28 @@
-//
-//  SettingView.swift
-//  EmojiDiary
-//
-//  Created by 강지원 on 8/13/25.
-//
-
 import SwiftUI
 
-struct SettingView: View {
-    @AppStorage("fontSize") private var fontSize: Double = 17
+enum fontSize: String, CaseIterable, Identifiable {
+    case small = "작게"
+    case normal = "보통"
+    case large = "크게"
+    var id: String {
+        rawValue
+    }
     
-    private var previewText: String { // 폰트 사이즈별로 미리보기 텍스트 return
-        switch Int(fontSize) {
-        case 7:
-            return "작게"
-        case 17:
-            return "보통"
-        case 27:
-            return "크게"
-        default:
-            return "\(Int(fontSize))"
+    var fontSize: CGFloat {
+        switch self {
+        case .small:
+            return 14
+        case .normal:
+            return 17
+        case .large:
+            return 20
         }
     }
+}
+
+struct SettingView: View {
+    @State private var comment = ""
+    @State private var getFontSize: fontSize = .normal
     
     var body: some View {
         NavigationStack {
@@ -35,14 +36,13 @@ struct SettingView: View {
                     Spacer()
                     
                 }
-                
-                
-                Slider(value: $fontSize, in: 7...27, step: 10) // 기본 폰트 사이즈 17 ± 10
-                    .padding(.horizontal, 50)
-                
-                Text(previewText)
-                    .font(.system(size: 17 * (CGFloat(fontSize) / 17))) // return된 미리보기 텍스트 표시
-                    .padding(.top)
+                Picker("글자 크기 선택", selection: $getFontSize) {
+                    ForEach(fontSize.allCases) {
+                        option in Text(option.rawValue).tag(option)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
                 
             }
             .navigationTitle("설정")
@@ -51,7 +51,7 @@ struct SettingView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             
         }
-        Spacer()
+
     }
     
 }

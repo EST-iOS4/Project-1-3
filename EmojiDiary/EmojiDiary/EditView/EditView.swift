@@ -14,6 +14,8 @@ struct EditView: View {
   @FocusState private var isTextEditorFocused: Bool // 키보드 생성
   @State var feelEmoji: String = "" // 선택한 이모티콘 저장
   private let backGroundColor = Color.gray.opacity(0.01) // 백그라운드컬러 통일
+  @Binding var text: String
+        let size: fontSize // 폰트 사이즈
   
   
   private var titleFormatter: DateFormatter {
@@ -34,7 +36,8 @@ struct EditView: View {
       // TODO: 글자수제한 추가?
       // 일기 작성란
       ZStack{
-        TextEditor(text: $comment)
+        TextEditor(text: $text)
+              .font(.system(size: size.fontSize))
           .frame(width: 350, height: 460)
           .lineSpacing(5)
           .padding()
@@ -45,7 +48,6 @@ struct EditView: View {
               .stroke(Color.gray.opacity(0.3))
               .fill(backGroundColor)
           )
-          .font(.body)
           .onTapGesture {
             isTextEditorFocused = true
           }
@@ -159,9 +161,9 @@ struct EditView: View {
 
 
 
-#Preview {
-  NavigationStack{
-    EditView(getDate: .constant(Date()))
-  }
-}
+//#Preview {
+//  NavigationStack{
+//    EditView(getDate: .constant(Date()))
+//  }
+//}
 
