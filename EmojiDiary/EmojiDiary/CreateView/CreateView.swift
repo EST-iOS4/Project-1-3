@@ -5,7 +5,6 @@
 
 import SwiftUI
 
-// 🔗 EditView의 이모지 모델을 그대로 사용 (타입 통일)
 typealias EmojisData = EditView.EmojisData
 
 struct CreateView: View {

@@ -26,6 +26,7 @@ struct SettingView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                Divider()
                 HStack {
                     Text("글자 크기")
                         .font(.system(size: 27))
@@ -37,11 +38,11 @@ struct SettingView: View {
                 
                 
                 Slider(value: $fontSize, in: 7...27, step: 10) // 기본 폰트 사이즈 17 ± 10
-                    .padding()
+                    .padding(.horizontal, 50)
                 
                 Text(previewText)
                     .font(.system(size: 17 * (CGFloat(fontSize) / 17))) // return된 미리보기 텍스트 표시
-                    .padding(.top, 8)
+                    .padding(.top)
                 
             }
             .navigationTitle("설정")
@@ -50,8 +51,6 @@ struct SettingView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             
         }
-        
-        
         Spacer()
     }
     

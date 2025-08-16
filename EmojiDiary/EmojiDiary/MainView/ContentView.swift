@@ -37,7 +37,7 @@ struct ContentView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 
                 .navigationDestination(isPresented: $navigationToSetting) { SettingView() }
-                .navigationDestination(isPresented: $navigationToDetail) { EditView(getDate: $date) }
+                .navigationDestination(isPresented: $navigationToDetail) { CreateView(getDate: $date) }
             }
             
             .tabItem {
