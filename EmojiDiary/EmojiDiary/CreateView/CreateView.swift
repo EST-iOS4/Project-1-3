@@ -190,17 +190,6 @@ struct SelectButtonView: View {
   }
   
 }
-
-
-
-
-
-
-
-
-
-
-
 #Preview {
   CreateView(getDate: .constant(Date()))
 }
