@@ -53,9 +53,18 @@ struct EditView: View {
         
         // 가이드 텍스트 표시
         if comment.isEmpty {
-          Text("오늘 하루는 어떠셨나요?")
-            .padding()
-            .opacity(0.5)
+          VStack(spacing: 10){
+            Text("오늘 하루 어떤 일들이 있었나요?")
+              .lineSpacing(6)
+              .kerning(2)
+              .opacity(0.5)
+            Text("느낀 점이나 특별했던 순간들을 자유롭게 적어보세요.")
+              .lineSpacing(6)
+              .kerning(2)
+              .opacity(0.5)
+              .multilineTextAlignment(.center)
+            
+          }
         }
         
         
@@ -155,7 +164,7 @@ struct EditView: View {
                     feelEmoji == EmojisData.emoji ? Color.yellow.opacity(0.3) : Color.white,
                     lineWidth : 3
                   )
-                  .frame(width: 100, height: 100)
+                  .frame(width: 80, height: 80)
               )
             }
           }
