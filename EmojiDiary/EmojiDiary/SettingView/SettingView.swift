@@ -24,33 +24,33 @@ struct SettingView: View {
     }
     
     var body: some View {
-        
-        VStack {
-            HStack {
-                Text("Setting")
-                    .font(.system(size: 27))
-                    .padding(.horizontal)
-                    .padding(.vertical)
-                Spacer()
-            }
-            HStack {
-                Text("글자 크기")
-                    .font(.system(size: 27))
-                    .padding(.horizontal)
-                    .padding(.vertical)
-                Spacer()
+        NavigationStack {
+            VStack {
+                HStack {
+                    Text("글자 크기")
+                        .font(.system(size: 27))
+                        .padding(.horizontal)
+                        .padding(.vertical)
+                    Spacer()
+                    
+                }
+                
+                
+                Slider(value: $fontSize, in: 7...27, step: 10) // 기본 폰트 사이즈 17 ± 10
+                    .padding()
+                
+                Text(previewText)
+                    .font(.system(size: 17 * (CGFloat(fontSize) / 17))) // return된 미리보기 텍스트 표시
+                    .padding(.top, 8)
                 
             }
+            .navigationTitle("설정")
+            .navigationBarTitleDisplayMode(.large)
             
-            
-            Slider(value: $fontSize, in: 7...27, step: 10) // 기본 폰트 사이즈 ± 10
-                .padding()
-            
-            Text(previewText)
-                .font(.system(size: 17 * (CGFloat(fontSize) / 17))) // return된 미리보기 텍스트 표시
-                .padding(.top, 8)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             
         }
+        
         
         Spacer()
     }

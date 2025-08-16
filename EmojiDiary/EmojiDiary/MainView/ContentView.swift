@@ -10,24 +10,6 @@ struct ContentView: View {
         TabView {
             NavigationStack {
                 VStack() {
-                    HStack {
-                        Spacer()
-                        Button {
-                            navigationToSetting = true
-                        } label: {
-                            Image(systemName: "ellipsis")
-                                .imageScale(.large)
-                                .padding(.vertical)
-                                .padding(.horizontal)
-                        }
-                    }
-                    
-                    Text("날짜를 눌러 오늘의 이야기를 담아보세요")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .padding(.vertical)
-
-                    
                     DatePicker("", selection: $date, in: ...Date(), displayedComponents: [.date])
                     .datePickerStyle(.graphical)
                     .environment(\.locale, Locale(identifier: "ko"))
@@ -38,6 +20,20 @@ struct ContentView: View {
                     }
                 }
                 
+                .navigationTitle("날짜를 눌러 오늘의 이야기를 담아보세요")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            navigationToSetting = true
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .imageScale(.large)
+                                .padding(.vertical)
+                                .padding(.horizontal)
+                        }
+                    }
+                }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 
                 .navigationDestination(isPresented: $navigationToSetting) { SettingView() }
