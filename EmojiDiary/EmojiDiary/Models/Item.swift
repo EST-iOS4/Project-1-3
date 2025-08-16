@@ -12,10 +12,10 @@ import SwiftData
 final class Item {
     @Attribute(.unique) var id: UUID
     let createdAt: Date
-    var imageData: Data
+    var imageData: String
     var content: String?
     
-    init(id: UUID, createdAt: Date, imageData: Data, content: String? = nil) {
+    init(id: UUID, createdAt: Date, imageData: String, content: String? = nil) {
         self.id = id
         self.createdAt = createdAt
         self.imageData = imageData
