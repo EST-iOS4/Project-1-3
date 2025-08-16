@@ -176,7 +176,6 @@ struct ListView: View {
                 })
                 
                 .pickerStyle(.segmented)
-                .background(.white)
             }
             
             ScrollViewReader { proxy in
@@ -217,7 +216,6 @@ struct ListView: View {
                 .safeAreaInset(edge: .bottom, content: {
                     Divider()
                         .frame(height: 0.5)
-                        .background(Color(.white))
                 })
                 .onChange(of: selectedTab) { _ in
                     withAnimation {
