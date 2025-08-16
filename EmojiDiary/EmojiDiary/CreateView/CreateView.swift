@@ -1,195 +1,86 @@
 //
-//  EditView.swift
-//
+//  CreateView.swift
 //  Created by EunYoung Wang on 8/12/25.
 //
 
 import SwiftUI
 
+// 🔗 EditView의 이모지 모델을 그대로 사용 (타입 통일)
+typealias EmojisData = EditView.EmojisData
+
 struct CreateView: View {
-  @State private var comment: String = "" //일기 본문내용
-  @Binding var getDate: Date // 외부에서 받아오는 날짜
-  @FocusState private var isTextEditorFocused: Bool // 키보드 생성
-  @State var FeelEmoji: String = "" // 선택한 이모티콘 저장
-  
+  @Binding var getDate: Date
+  @State private var comment = ""
+  @State private var feelEmoji = ""
+  @FocusState private var isTextEditorFocused: Bool
+  @Environment(\.dismiss) private var dismiss
+
   private var titleFormatter: DateFormatter {
     let f = DateFormatter()
     f.locale = Locale(identifier: "ko_KR")
     f.dateFormat = "yyyy년 M월 d일"
     return f
   }
+
   
-  
+  let emojis: [EmojisData] = [
+    EmojisData(emoji: "sun.max",    name: "기분 좋음"),
+    EmojisData(emoji: "cloud",      name: "그저 그럼"),
+    EmojisData(emoji: "cloud.rain", name: "기분 안좋음"),
+    EmojisData(emoji: "cloud.bolt", name: "개열받음")
+  ]
+
   var body: some View {
-    // 상단 바
-<<<<<<< HEAD
-    VStack(spacing: 0) {
-      ZStack {
-        //뒤로가기 버튼
-=======
-    NavigationView {
+    VStack(spacing: 24) {
+
       
-      VStack(spacing: 35){
-        
-        // 이모티콘 고르기
-       
-          HStack{
-            Button("🩷", action: {})
-              .font(.system(size: 50))
-            Button("💔", action: {})
-              .font(.system(size: 50))
-            Button("💗", action: {})
-              .font(.system(size: 50))
-          }
-        
-        
-        
-        // 일기 작성란
-        VStack {
-          ZStack {
-            TextEditor(text: $comment)
-              .frame(width: 350, height: 400)
-              .padding()
-              .autocorrectionDisabled()
-              .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                  .stroke(Color.gray)
-                  .fill(.yellow.opacity(0.1))
-              )
-              .font(.body)
-            
-            
-            //가이드 텍스트 표시
-            if comment.isEmpty {
-              VStack {
-                Text("일기를 작성하세요.")
-                  .padding()
-                  .opacity(0.35)
-              }
-            }
-          }
-        }
-        
-        //저장 버튼
->>>>>>> 9fe7b3b89350ba50d54fc02ef7c665340ffc0de8
-        HStack {
-          Spacer()
-          Button(action: {print("일기저장")}) {
-            Image(systemName: "plus.circle.fill")
-              .font(.system(size: 45))
-          }
-        }
-        .padding(.trailing, 25)
-      }
-      
-      // 상단바
-      .toolbar{
-        // 뒤로가기 버튼
-        ToolbarItem(placement: .navigationBarLeading){
-          Button(action: {print("뒤로 갔습니다")}){
-          }
-          Spacer()
-        }
-      }
-    }
-    .padding()
-    .navigationTitle(titleFormatter.string(from: getDate))
-    .navigationBarTitleDisplayMode(.inline)
-    
-    
-    // 이모티콘 선택 뷰
-    SelectButtonView(FeelEmoji: $FeelEmoji, emojis: emojis)
-    
-    
-    // TODO: 글자수제한 추가?
-    // 일기 작성란
-    VStack {
-      ZStack {
+      SelectButtonView(feelEmoji: $feelEmoji, emojis: emojis)
+
+      ZStack(alignment: .topLeading) {
         TextEditor(text: $comment)
-          .frame(width: 350, height: 400)
+          .frame(minHeight: 260)
           .padding()
           .autocorrectionDisabled()
           .focused($isTextEditorFocused)
           .overlay(
-            RoundedRectangle(cornerRadius: 20)
-              .stroke(Color.gray.opacity(0.3))
-              .fill(.yellow.opacity(0.1))
+            RoundedRectangle(cornerRadius: 16)
+              .stroke(Color.gray.opacity(0.3), lineWidth: 1)
           )
           .font(.body)
-          .onTapGesture {
-            isTextEditorFocused = true
-          }
-        
-        
-        
-        //가이드 텍스트 표시
+
         if comment.isEmpty {
-          VStack {
-            Text("일기를 작성하세요.")
-              .padding()
-              .opacity(0.35)
-          }
+          Text("일기를 작성하세요.")
+            .foregroundColor(.secondary)
+            .padding(.horizontal, 24)
+            .padding(.vertical, 16)
+        }
+      }
 
+      HStack {
+        Spacer()
+        Button {
+          print("일기저장")
+        } label: {
+          Image(systemName: "plus.circle.fill")
+            .font(.system(size: 45))
         }
       }
     }
-    
-  }
-  
-<<<<<<< HEAD
-  // EmojisData 이모티콘 데이터 형식
-  struct EmojisData{
-    let id: Int = UUID().hashValue
-    let emoji: String
-    let name: String
-  }
-
-  // emojis: 이모티콘 배열
-  let emojis: [EmojisData] = [
-    EmojisData(emoji:"sun.max",name:"기분 좋음"),
-    EmojisData(emoji:"cloud",name:"그저 그럼"),
-    EmojisData(emoji:"cloud.rain",name:"기분 안좋음"),
-    EmojisData(emoji:"cloud.bolt",name:"개열받음")
-  ]
-}
-
-
-
-
-// 이모티콘 버튼 뷰
-struct SelectButtonView: View {
-  @Binding var FeelEmoji: String // CreateView와 양방향 바인딩
-  let emojis: [CreateView.EmojisData]
-  
-  var body: some View{
-    
-    // 이모티콘 고르기
-    VStack{
-      HStack(spacing: 20){
-        ForEach(emojis, id: \.id){ EmojisData in
-          Button(action: {
-            FeelEmoji = EmojisData.emoji
-          })
-          {
-            Image(systemName: EmojisData.emoji)
-            // 선택한 이모티콘만 스타일 변화
-            // FIXME: 구름 이모티콘 선택시 모양 이상함. 수정예정
-              .font(.system(size: FeelEmoji == EmojisData.emoji ? 60 : 50))
-              .foregroundStyle(FeelEmoji == EmojisData.emoji ? .yellow : .black)
-          }
-          .overlay(
-            RoundedRectangle(cornerSize: .init(width: 50, height: 50))
-              .stroke(
-                FeelEmoji == EmojisData.emoji ? Color.yellow.opacity(0.3) : Color.white
-              )
-          )
+    .padding(.horizontal, 20)
+    .navigationTitle(titleFormatter.string(from: getDate))
+    .navigationBarTitleDisplayMode(.inline)
+    .toolbar {
+      ToolbarItem(placement: .navigationBarLeading) {
+        Button { dismiss() } label: {
+          Image(systemName: "chevron.left")
         }
       }
     }
-    .padding()
   }
-  
 }
+
 #Preview {
-  CreateView(getDate: .constant(Date()))
+  NavigationStack {
+    CreateView(getDate: .constant(Date()))
+  }
 }
