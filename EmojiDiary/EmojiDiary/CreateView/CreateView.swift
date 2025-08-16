@@ -187,7 +187,7 @@ struct CreateSelectButtonView: View {
                 feelEmoji == EmojisData.emoji ? Color.yellow.opacity(0.3) : Color.white,
                 lineWidth : 3
               )
-              .frame(width: 100, height: 100)
+              .frame(width: 80, height: 80)
           )
         }
       }
