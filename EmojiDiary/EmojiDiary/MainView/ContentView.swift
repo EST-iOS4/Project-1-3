@@ -15,12 +15,16 @@ struct ContentView: View {
                     DatePicker("", selection: $date, in: ...Date(), displayedComponents: [.date])
                         .datePickerStyle(.graphical)
                         .environment(\.locale, Locale(identifier: "ko"))
+                        .padding(.horizontal)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Spacer()
                     
-                        .onChange(of: date) { _, newValue in
-                            selectedDate = newValue
-                            navigationToDetail = true
-                        }
                 }
+                .onChange(of: date) { _, newValue in
+                    selectedDate = newValue
+                    navigationToDetail = true
+                }
+                
                 
                 .navigationTitle("날짜를 눌러 오늘의 이야기를 담아보세요")
                 .navigationBarTitleDisplayMode(.inline)
@@ -36,12 +40,12 @@ struct ContentView: View {
                         }
                     }
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 
                 .navigationDestination(isPresented: $navigationToSetting) {
                     SettingView() }
                 .navigationDestination(isPresented: $navigationToDetail) {
                     CreateView(getDate: $date, text: $comment, size: getFontSize)
+                        .toolbar(.hidden, for: .tabBar)
                 }
             }
             
