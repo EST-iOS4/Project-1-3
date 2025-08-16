@@ -11,7 +11,9 @@ struct CreateView: View {
   @Binding var getDate: Date // 외부에서 받아오는 날짜
   @FocusState private var isTextEditorFocused: Bool // 키보드 생성
   @State var feelEmoji: String = "" // 선택한 이모티콘 저장
+
   private let backGroundColor = Color.gray.opacity(0.01) // 백그라운드컬러 통일
+  
   
   
   private var titleFormatter: DateFormatter {
@@ -37,6 +39,7 @@ struct CreateView: View {
         TextEditor(text: $comment)
           .frame(width: 350, height: 460)
           .lineSpacing(5)
+          .kerning(3)
           .padding()
           .autocorrectionDisabled()
           .focused($isTextEditorFocused)
@@ -53,9 +56,18 @@ struct CreateView: View {
         
         //가이드 텍스트 표시
         if comment.isEmpty {
-          Text("오늘 하루는 어떠셨나요?")
-            .padding()
-            .opacity(0.5)
+          VStack(spacing: 10){
+            Text("오늘 하루 어떤 일들이 있었나요?")
+              .lineSpacing(6)
+              .kerning(2)
+              .opacity(0.5)
+            Text("느낀 점이나 특별했던 순간들을 자유롭게 적어보세요.")
+              .lineSpacing(6)
+              .kerning(2)
+              .opacity(0.5)
+              .multilineTextAlignment(.center)
+            
+          }
         }
         
         
@@ -76,31 +88,30 @@ struct CreateView: View {
             Text("\(comment.count) 자")
               .opacity(0.5)
               .padding(.horizontal, 40)
-              .padding(.vertical, 15)
+              .padding(.vertical, 25)
           }
         }
       }
       Spacer()
-      
-      
-      //저장 버튼
-      HStack {
-        Spacer()
-        // TODO: 저장버튼 누르면 메인뷰로 돌아가기
-        Button(action: {print("일기저장")}) {
-          Image(systemName: "plus.circle.fill")
-            .font(.system(size: 50))
-            .foregroundStyle(Color.yellow)
-        }
-        .padding([.horizontal, .vertical])
-        .padding(.trailing)
-      }
-      
     }
     .navigationTitle(titleFormatter.string(from: getDate))
     .navigationBarTitleDisplayMode(.inline)
     .background(backGroundColor.ignoresSafeArea(.all, edges: .top))
     .toolbarBackgroundVisibility(.visible, for: .navigationBar)
+    .toolbar{
+      ToolbarItemGroup(placement: .keyboard){
+        HStack{
+          Spacer()
+          Button(action: {
+            isTextEditorFocused = false
+            /*저장기능추가*/
+          }){
+            Image(systemName: "checkmark")
+              .foregroundStyle(Color.gray)
+          }
+        }
+      }
+    }
   }
   
   
