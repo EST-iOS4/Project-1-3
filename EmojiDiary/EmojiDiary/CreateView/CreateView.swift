@@ -7,149 +7,129 @@
 import SwiftUI
 
 struct CreateView: View {
-  @State private var comment: String = "" //일기 본문내용
-  @Binding var getDate: Date // 외부에서 받아오는 날짜
-  @FocusState private var isTextEditorFocused: Bool // 키보드 생성
-  @State var FeelEmoji: String = "" // 선택한 이모티콘 저장
-  
-  private var titleFormatter: DateFormatter {
-    let f = DateFormatter()
-    f.locale = Locale(identifier: "ko_KR")
-    f.dateFormat = "yyyy년 M월 d일"
-    return f
-  }
-  
-  
-  var body: some View {
-    // 상단 바
-    VStack(spacing: 0) {
-      ZStack {
-        //뒤로가기 버튼
-        HStack {
-          Spacer()
-          Button(action: {print("일기저장")}) {
-            Image(systemName: "plus.circle.fill")
-              .font(.system(size: 45))
-          }
-        }
-        .padding(.trailing, 25)
-      }
-      
-      // 상단바
-      .toolbar{
-        // 뒤로가기 버튼
-        ToolbarItem(placement: .navigationBarLeading){
-          Button(action: {print("뒤로 갔습니다")}){
-          }
-          Spacer()
-        }
-      }
-    }
-    .padding()
-    .navigationTitle(titleFormatter.string(from: getDate))
-    .navigationBarTitleDisplayMode(.inline)
+    @State private var comment: String = "" //일기 본문내용
+    @Binding var getDate: Date // 외부에서 받아오는 날짜
+    @FocusState private var isTextEditorFocused: Bool // 키보드 생성
+    @State var feelEmoji: String = "" // 선택한 이모티콘 저장
+    @Environment(\.dismiss) var dismiss
     
+    @ObservedObject private var createViewModel: CreateViewModel
     
-    // 이모티콘 선택 뷰
-    SelectButtonView(FeelEmoji: $FeelEmoji, emojis: emojis)
-    
-    
-    // TODO: 글자수제한 추가?
-    // 일기 작성란
-    VStack {
-      ZStack {
-        TextEditor(text: $comment)
-          .frame(width: 350, height: 400)
-          .padding()
-          .autocorrectionDisabled()
-          .focused($isTextEditorFocused)
-          .overlay(
-            RoundedRectangle(cornerRadius: 20)
-              .stroke(Color.gray.opacity(0.3))
-              .fill(.yellow.opacity(0.1))
-          )
-          .font(.body)
-          .onTapGesture {
-            isTextEditorFocused = true
-          }
-        
-        
-        
-        //가이드 텍스트 표시
-        if comment.isEmpty {
-          VStack {
-            Text("일기를 작성하세요.")
-              .padding()
-              .opacity(0.35)
-          }
-
-        }
-      }
+    init(getDate: Binding<Date>, viewModel: CreateViewModel) {
+        self._getDate = getDate
+        self.createViewModel = viewModel
     }
     
-  }
-  
-  // EmojisData 이모티콘 데이터 형식
-  struct EmojisData{
-    let id: Int = UUID().hashValue
-    let emoji: String
-    let name: String
-  }
-
-  // emojis: 이모티콘 배열
-  let emojis: [EmojisData] = [
-    EmojisData(emoji:"sun.max",name:"기분 좋음"),
-    EmojisData(emoji:"cloud",name:"그저 그럼"),
-    EmojisData(emoji:"cloud.rain",name:"기분 안좋음"),
-    EmojisData(emoji:"cloud.bolt",name:"개열받음")
-  ]
-}
-
-// 이모티콘 버튼 뷰
-struct SelectButtonView: View {
-  @Binding var FeelEmoji: String // CreateView와 양방향 바인딩
-  let emojis: [CreateView.EmojisData]
-  
-  var body: some View{
-    
-    // 이모티콘 고르기
-    VStack{
-      HStack(spacing: 20){
-        ForEach(emojis, id: \.id){ EmojisData in
-          Button(action: {
-            FeelEmoji = EmojisData.emoji
-          })
-          {
-            Image(systemName: EmojisData.emoji)
-            // 선택한 이모티콘만 스타일 변화
-            // FIXME: 구름 이모티콘 선택시 모양 이상함. 수정예정
-              .font(.system(size: FeelEmoji == EmojisData.emoji ? 60 : 50))
-              .foregroundStyle(FeelEmoji == EmojisData.emoji ? .yellow : .black)
-          }
-          .overlay(
-            RoundedRectangle(cornerSize: .init(width: 50, height: 50))
-              .stroke(
-                FeelEmoji == EmojisData.emoji ? Color.yellow.opacity(0.3) : Color.white
-              )
-          )
-        }
-      }
+    private var titleFormatter: DateFormatter {
+        let f = DateFormatter()
+        f.locale = Locale(identifier: "ko_KR")
+        f.dateFormat = "yyyy년 M월 d일"
+        f.timeZone = TimeZone(identifier: "Asia/Seoul")
+        return f
     }
-    .padding()
-  }
-  
+
+    private let backGroundColor = Color.gray.opacity(0.01) // 백그라운드컬러 통일
+    
+    struct SelectButtonView2: View {
+        @Binding var feelEmoji: String // CreateView와 양방향 바인딩
+        
+        // EmojisData 이모티콘 데이터 형식
+        struct EmojisData{
+            let id: Int = UUID().hashValue
+            let emoji: String
+            let name: String
+        }
+        
+        // emojis: 이모티콘 배열
+        let emojis: [EmojisData] = [
+            EmojisData(emoji:"sun.max",name:"기분 좋음"),
+            EmojisData(emoji:"cloud",name:"그저 그럼"),
+            EmojisData(emoji:"cloud.rain",name:"기분 안좋음"),
+            EmojisData(emoji:"cloud.bolt",name:"개열받음")
+        ]
+        
+        var body: some View{
+            
+            // 이모티콘 고르기
+            VStack{
+                HStack(spacing: 30){
+                    ForEach(emojis, id: \.id){ EmojisData in
+                        Button(action: {
+                            feelEmoji = EmojisData.emoji
+                        })
+                        {
+                            Image(systemName: EmojisData.emoji)
+                                .font(.system(size: 40))
+                                .foregroundStyle(feelEmoji == EmojisData.emoji ? .yellow : .primary)
+                                .frame(width: 60, height: 60)
+                        }
+                        .overlay(
+                            Circle()
+                                .stroke(
+                                    feelEmoji == EmojisData.emoji ? Color.yellow.opacity(0.3) : Color.clear,
+                                    lineWidth : 3
+                                )
+                        )
+                    }
+                }
+            }
+        }
+    }
+    
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 20) {
+                // 이모티콘 선택 뷰
+                SelectButtonView2(feelEmoji: $feelEmoji)
+                    .padding(.top)
+
+                // 일기 작성란
+                ZStack {
+                    TextEditor(text: $comment)
+                        .frame(width: 350, height: 460)
+                        .lineSpacing(5)
+                        .padding()
+                        .autocorrectionDisabled()
+                        .focused($isTextEditorFocused)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.gray.opacity(0.3))
+                                .fill(backGroundColor)
+                        )
+                        .font(.body)
+                        .onTapGesture {
+                            isTextEditorFocused = true
+                        }
+                    
+                    // 가이드 텍스트 표시
+                    if comment.isEmpty {
+                        Text("오늘 하루는 어떠셨나요?")
+                            .padding()
+                            .opacity(0.5)
+                            .allowsHitTesting(false)
+                    }
+                }
+                Spacer()
+            }
+        }
+        .navigationTitle(titleFormatter.string(from: getDate))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("저장") {
+                    createViewModel.saveDiary(for: getDate, imageData: feelEmoji, content: comment)
+                    dismiss()
+                }
+                .disabled(feelEmoji.isEmpty)
+            }
+        }
+        .onTapGesture {
+            isTextEditorFocused = false
+        }
+        
+    }
 }
 
-
-
-
-
-
-
-
-
-
-
-#Preview {
-  CreateView(getDate: .constant(Date()))
-}
+//#Preview {
+//    CreateView(getDate: .constant(Date()), viewModel: CreateViewModel(dataManager: DiaryDataManager(context: context)))
+//}
