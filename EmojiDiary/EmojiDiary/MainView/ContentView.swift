@@ -51,7 +51,8 @@ struct ContentView: View {
                     Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                .navigationDestination(isPresented: $navigationToSetting) { SettingView() }
+                .navigationDestination(isPresented: $navigationToSetting) { SettingView()
+                    .toolbar(Visibility.hidden, for: ToolbarPlacement.tabBar) }
                 .navigationDestination(isPresented: $navigationToCreate) {
                     CreateView(
                         getDate: $date,
@@ -59,11 +60,13 @@ struct ContentView: View {
                             dataManager: DiaryDataManager(context: context)
                         )
                     )
+                    .toolbar(Visibility.hidden, for: ToolbarPlacement.tabBar)
                 }
                 .navigationDestination(isPresented: $navigationToEdit) {
                     if let diary = selectedDiary {
                         let editVM = EditViewModel(diary: diary, dataManager: DiaryDataManager(context: context))
                         EditView(getDate: $selectedDate, editViewModel: editVM)
+                            .toolbar(Visibility.hidden, for: ToolbarPlacement.tabBar)
                     }
                 }
             }
