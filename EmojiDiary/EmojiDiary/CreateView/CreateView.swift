@@ -88,7 +88,7 @@ struct CreateView: View {
               Text("\(comment.count) 자")
                 .opacity(0.5)
                 .padding(.horizontal, 40)
-                .padding(.vertical, 25)
+                .padding(.vertical, 20)
             }
           }
         }
@@ -171,13 +171,12 @@ struct CreateSelectButtonView: View {
         ForEach(emojis, id: \.id){ EmojisData in
           Button(action: {
             feelEmoji = EmojisData.emoji
-
           })
           {
             Image(systemName: EmojisData.emoji)
             // 선택한 이모티콘만 스타일 변화
               .font(.system(size: feelEmoji == EmojisData.emoji ? 60 : 50))
-              .foregroundStyle(feelEmoji == EmojisData.emoji ? .yellow : .black)
+              .foregroundStyle(feelEmoji == EmojisData.emoji ? .yellow : .primary)
           }
           .overlay(
             Circle()
