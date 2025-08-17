@@ -15,7 +15,6 @@ struct CreateView: View {
   private let backGroundColor = Color.gray.opacity(0.01) // 백그라운드컬러 통일
   
   
-  
   private var titleFormatter: DateFormatter {
     let f = DateFormatter()
     f.locale = Locale(identifier: "ko_KR")
@@ -28,12 +27,13 @@ struct CreateView: View {
     ZStack{
       VStack(spacing: 0){
         Spacer(minLength: 60)
+        
+        
         // 이모티콘 선택 뷰
         CreateSelectButtonView(feelEmoji: $feelEmoji, emojis: emojis)
-        
         Spacer(minLength: 40)
         
-        // TODO: 글자수제한 추가?
+        
         // 일기 작성란
         ZStack{
           TextEditor(text: $comment)
@@ -134,11 +134,9 @@ struct CreateView: View {
           
         }
         .transition(.opacity)
-        
       }
     }
     }
-  
   
   
   // EmojisData 이모티콘 데이터 형식
@@ -147,6 +145,7 @@ struct CreateView: View {
     let emoji: String
     let name: String
   }
+  
   
   // emojis: 이모티콘 배열
   let emojis: [EmojisData] = [
@@ -158,11 +157,10 @@ struct CreateView: View {
 }
 
 
-
-
 // 이모티콘 버튼 뷰
 struct CreateSelectButtonView: View {
   @Binding var feelEmoji: String // CreateView와 양방향 바인딩
+
   let emojis: [CreateView.EmojisData]
   
   var body: some View{
@@ -173,11 +171,11 @@ struct CreateSelectButtonView: View {
         ForEach(emojis, id: \.id){ EmojisData in
           Button(action: {
             feelEmoji = EmojisData.emoji
+
           })
           {
             Image(systemName: EmojisData.emoji)
             // 선택한 이모티콘만 스타일 변화
-            // FIXME: 테두리 사이즈 겹침 수정요망
               .font(.system(size: feelEmoji == EmojisData.emoji ? 60 : 50))
               .foregroundStyle(feelEmoji == EmojisData.emoji ? .yellow : .black)
           }
@@ -196,12 +194,9 @@ struct CreateSelectButtonView: View {
 }
 
 
-
 #Preview {
   NavigationStack{
     CreateView(getDate: .constant(Date()))
   }
 }
-
-
 
