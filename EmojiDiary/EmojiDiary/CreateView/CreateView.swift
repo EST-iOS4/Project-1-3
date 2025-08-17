@@ -51,7 +51,7 @@ struct CreateView: View {
     
     
     // 이모티콘 선택 뷰
-    SelectButtonView(FeelEmoji: $FeelEmoji, emojis: emojis)
+    CreateSelectButtonView(FeelEmoji: $FeelEmoji, emojis: emojis)
     
     
     // TODO: 글자수제한 추가?
@@ -106,7 +106,7 @@ struct CreateView: View {
 }
 
 // 이모티콘 버튼 뷰
-struct SelectButtonView: View {
+struct CreateSelectButtonView: View {
   @Binding var FeelEmoji: String // CreateView와 양방향 바인딩
   let emojis: [CreateView.EmojisData]
   
