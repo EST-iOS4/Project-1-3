@@ -156,7 +156,7 @@ struct EditView: View {
                 Image(systemName: EmojisData.emoji)
                 // 선택한 이모티콘만 스타일 변화
                   .font(.system(size: feelEmoji == EmojisData.emoji ? 60 : 50))
-                  .foregroundStyle(feelEmoji == EmojisData.emoji ? .yellow : .black)
+                  .foregroundStyle(feelEmoji == EmojisData.emoji ? .yellow : .primary)
               }
               .overlay(
                 Circle()
