@@ -8,6 +8,7 @@ struct ContentView: View {
     @State private var selectedDiary: Item? = nil
     @State private var navigationToCreate = false
     @State private var navigationToEdit = false
+    @State private var getFontSize: fontSize = .normal
     
     @Environment(\.modelContext) private var context
     
@@ -51,21 +52,28 @@ struct ContentView: View {
                     Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                .navigationDestination(isPresented: $navigationToSetting) { SettingView()
+                .navigationDestination(isPresented: $navigationToSetting) {
+                    SettingView(getFontSize: $getFontSize)
                     .toolbar(Visibility.hidden, for: ToolbarPlacement.tabBar) }
+                
                 .navigationDestination(isPresented: $navigationToCreate) {
                     CreateView(
                         getDate: $date,
-                        viewModel: CreateViewModel(
-                            dataManager: DiaryDataManager(context: context)
-                        )
+                        viewModel: CreateViewModel (
+                            dataManager: DiaryDataManager(context: context),
+                        ),
+                        getFontSize: getFontSize,
                     )
                     .toolbar(Visibility.hidden, for: ToolbarPlacement.tabBar)
                 }
+                
                 .navigationDestination(isPresented: $navigationToEdit) {
                     if let diary = selectedDiary {
                         let editVM = EditViewModel(diary: diary, dataManager: DiaryDataManager(context: context))
-                        EditView(getDate: $selectedDate, editViewModel: editVM)
+                        EditView(
+                            getDate: $selectedDate,
+                            getFontSize: getFontSize, editViewModel: editVM
+                        )
                             .toolbar(Visibility.hidden, for: ToolbarPlacement.tabBar)
                     }
                 }

@@ -12,12 +12,14 @@ struct CreateView: View {
     @FocusState private var isTextEditorFocused: Bool // 키보드 생성
     @State var feelEmoji: String = "" // 선택한 이모티콘 저장
     @Environment(\.dismiss) var dismiss
+    let getFontSize: fontSize
     
     @ObservedObject private var createViewModel: CreateViewModel
     
-    init(getDate: Binding<Date>, viewModel: CreateViewModel) {
+    init(getDate: Binding<Date>, viewModel: CreateViewModel, getFontSize: fontSize) {
         self._getDate = getDate
         self.createViewModel = viewModel
+        self.getFontSize = getFontSize
     }
     
     private var titleFormatter: DateFormatter {
@@ -96,7 +98,7 @@ struct CreateView: View {
                                 .stroke(Color.gray.opacity(0.3))
                                 .fill(backGroundColor)
                         )
-                        .font(.body)
+                        .font(.system(size: getFontSize.fontSize))
                         .onTapGesture {
                             isTextEditorFocused = true
                         }
