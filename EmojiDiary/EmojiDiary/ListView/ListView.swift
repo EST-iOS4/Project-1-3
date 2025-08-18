@@ -6,8 +6,14 @@
 //
 
 import Charts
-import SwiftData
 import SwiftUI
+
+struct Emoji2: Identifiable, Hashable {
+    let id = UUID()
+    let symbol: String
+    let count: Int
+    var image: Image { Image(systemName: symbol) }
+}
 
 struct MonthYearPicker: UIViewRepresentable {
     @Binding var date: Date
@@ -45,9 +51,6 @@ struct MonthYearPicker: UIViewRepresentable {
 }
 
 struct ListView: View {
-    @Environment(\.modelContext) private var context
-    @Query private var items: [Item]
-    
     @State private var currentDate = Date()
     @State private var tempDate = Date()
     @State private var selectedTab = "all"
@@ -73,39 +76,37 @@ struct ListView: View {
         selectedTab == "all" ? Array(tabs.dropFirst()) : chartData.map { $0.symbol }
     }
     
-    var chartData: [Emoji] {
-        var counts: [String: Int] = [:]
-        for item in filteredItems {
-            counts[item.imageData, default: 0] += 1
+    var chartData: [Emoji2] {
+            switch selectedTab {
+            case "all":
+                return [
+                    Emoji2(symbol: "sun.max", count: 12),
+                    Emoji2(symbol: "cloud", count: 12),
+                    Emoji2(symbol: "cloud.rain", count: 12),
+                    Emoji2(symbol: "cloud.bolt", count: 12)
+                ]
+            case "sun.max":
+                return [
+                    Emoji2(symbol: "sun.max", count: 12)
+                ]
+            case "cloud":
+                return [
+                    Emoji2(symbol: "cloud", count: 12)
+                ]
+            case "cloud.rain":
+                return [
+                    Emoji2(symbol: "cloud.rain", count: 12)
+                ]
+            case "cloud.bolt":
+                return [
+                    Emoji2(symbol: "cloud.bolt", count: 12)
+                ]
+            default:
+                return []
+            }
         }
-        
-        var data = counts.map { Emoji(symbol: $0.key, count: $0.value) }
-        
-        if selectedTab != "all" {
-            data = data.filter { $0.symbol == selectedTab }
-        }
-        
-        return data
-    }
     
-    //현재 선택한 연/월에 맞는 Item 필터링 결과를 출력
-    var filteredItems: [Item] {
-        let calendar = Calendar.current
-        let year = calendar.component(.year, from: currentDate)
-        let month = calendar.component(.month, from: currentDate)
-        
-        var filtered = items.filter { item in
-            let itemYear = calendar.component(.year, from: item.createdAt)
-            let itemMonth = calendar.component(.month, from: item.createdAt)
-            return itemYear == year && itemMonth == month
-        }
-        
-        if selectedTab != "all" {
-            filtered = filtered.filter { $0.imageData == selectedTab }
-        }
-        
-        return filtered.sorted(by: { $0.createdAt < $1.createdAt })
-    }
+    let dummyData: [String] = ["사과", "바나나", "딸기", "수박","사과1", "바나나1", "딸기1", "수박2", "바나나2", "딸기2", "수박3", "바나나3", "딸기3", "수박4"]
     
     var body: some View {
         let monthFormatter: DateFormatter = {
@@ -115,120 +116,113 @@ struct ListView: View {
             return formatter
         }()
         
-        let dateFormatter: DateFormatter = {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy.MM.dd"
-            return formatter
-        }()
-        
-        NavigationStack {
-            VStack {
-                HStack {
-                    Button {
-                        changeMonth(by: -1)
-                    } label: {
-                        Image(systemName: "chevron.left")
-                    }
-                    Button {
-                        showPicker.toggle()
-                    } label: {
-                        Text(monthFormatter.string(from: currentDate))
-                            .font(.headline)
-                            .frame(minWidth: 120)
-                    }
-                    .sheet(isPresented: $showPicker) {
-                        VStack {
-                            MonthYearPicker(date: $tempDate)
-                                .datePickerStyle(.wheel)
-                                .labelsHidden()
-                            
-                            Button("확인") {
-                                currentDate = tempDate
-                                showPicker = false
-                                selectedTab = tabs[0]
-                            }
-                            .padding()
-                        }
-                        .presentationDetents([.height(250)])
-                    }
+        VStack {
+            HStack {
+                Button {
+                    changeMonth(by: -1)
+                    //추가로 월이 변경될 때 마다 SwiftData 가져와 차트와 그래프를 변경해야 한다.
                     
-                    Button {
-                        changeMonth(by: 1)
-                    } label: {
-                        Image(systemName: "chevron.right")
-                    }
+                } label: {
+                    Image(systemName: "chevron.left")
                 }
-                
-                VStack {
-                    Picker("", selection: $selectedTab) {
-                        ForEach(tabs, id: \.self) { key in
-                            if key == "all" {
-                                Text("all").tag(key)
-                            } else {
-                                Image(systemName: key).tag(key)
-                            }
-                        }
-                    }
-                    .padding()
-                    .pickerStyle(.segmented)
+                Button {
+                    //년월을 선택할 수 있도록 커스텀해줘야함
+                    showPicker.toggle()
+                } label: {
+                    Text(monthFormatter.string(from: currentDate))
+                        .font(.headline)
+                        .frame(minWidth: 120)
+                    
                 }
-                
-                ScrollViewReader { proxy in
-                    List {
-                        Chart(chartData, id: \.id) { element in
-                            SectorMark(angle: .value("Usage", element.count), angularInset: 1.0)        //angularInset 으로 차트 사이 간격을 줄 수 있음
-                                .foregroundStyle(by: .value("Emoji", element.symbol))
-                                
-                                .annotation(position: .overlay) {
-                                    Text("\(element.count)")
-                                        .font(.caption)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.white)
-                                }
+                .sheet(isPresented: $showPicker) {
+                    VStack {
+                        MonthYearPicker(date: $tempDate)
+                            .datePickerStyle(.wheel)
+                            .labelsHidden()
+                        
+                        Button("확인") {
+                            currentDate = tempDate
+                            showPicker = false
+                            selectedTab = tabs[0]
                         }
-                        .chartForegroundStyleScale(colorScalePairs)
-                        .chartLegend(.hidden)
                         .padding()
-                        .scaledToFit()
-                        .id("top")
-                        
-                        HStack(spacing: 18) {
-                            ForEach(legendKeys, id: \.self) { key in
-                                HStack(spacing: 6) {
-                                    Circle()
-                                        .fill(colorScale[key] ?? .gray)
-                                        .frame(width: 8, height: 8)
-                                    Image(systemName: key)
-                                }
-                            }
-                        }
-                        .padding(.horizontal)
-                        
-                        ForEach(filteredItems, id: \.id) { item in
-                            NavigationLink(destination: EditView(getDate: item.createdAt, editViewModel: EditViewModel(diary: item, dataManager: DiaryDataManager(context: context)))) {
-                                HStack {
-                                    Image(systemName: item.imageData)
-                                    VStack(alignment: .leading) {
-                                        Text("\(item.createdAt, formatter: dateFormatter)")
-                                            .font(.caption)
-                                            .foregroundColor(.gray)
-                                        Text(item.content ?? "")
-                                            .lineLimit(1)
-                                    }
-                                }
-                            }
-                        }
                     }
-                    .safeAreaInset(edge: .bottom, content: {
-                        Divider()
-                            .frame(height: 0.5)
-                    })
-                    .onChange(of: selectedTab) { _, _ in
-                        withAnimation {
-                            proxy.scrollTo("top", anchor: .top)
+                    .presentationDetents([.height(250)])
+                }
+                
+                Button {
+                    changeMonth(by: 1)
+                    //추가로 월이 변경될 때 마다 SwiftData 가져와 차트와 그래프를 변경해야 한다.
+                } label: {
+                    Image(systemName: "chevron.right")
+                }
+            }
+            
+            VStack {
+                Picker("", selection: $selectedTab) {
+                    ForEach(tabs, id: \.self) { key in
+                        if key == "all" {
+                            Text("all").tag(key)
+                        } else {
+                            Image(systemName: key).tag(key)
+                                
                         }
                     }
                 }
+                .padding()
+                //MARK: - selectedTab 을 변경할 때 마다 호출
+                .onChange(of: selectedTab, { oldValue, newValue in
+                    //SwiftData 데이터를 값을 꺼내와서 호출
+                })
+                
+                .pickerStyle(.segmented)
+            }
+            
+            ScrollViewReader { proxy in
+                List {
+                    Chart(chartData, id: \.id) { element in
+                        SectorMark(angle: .value("Usage", element.count), angularInset: 1.0)        //angularInset 으로 차트 사이 간격을 줄 수 있음
+                            .foregroundStyle(by: .value("Emoji", element.symbol))
+                            
+                            .annotation(position: .overlay) {
+                                Text("\(element.count)")
+                                    .font(.caption)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                            }
+                    }
+                    .chartForegroundStyleScale(colorScalePairs)
+                    .chartLegend(.hidden)
+                    .padding()
+                    .scaledToFit()
+                    .id("top")
+                    
+                    HStack(spacing: 18) {
+                        ForEach(legendKeys, id: \.self) { key in
+                            HStack(spacing: 6) {
+                                Circle()
+                                    .fill(colorScale[key] ?? .gray)
+                                    .frame(width: 8, height: 8)
+                                Image(systemName: key)
+                            }
+                        }
+                    }
+                    .padding(.horizontal)
+                    
+                    ForEach(dummyData, id: \.self) { fruit in
+                        Text(fruit)
+                    }
+                }
+                .safeAreaInset(edge: .bottom, content: {
+                    Divider()
+                        .frame(height: 0.5)
+                })
+                .onChange(of: selectedTab) { _ in
+                    withAnimation {
+                        proxy.scrollTo("top", anchor: .top)
+                    }
+                }
+                
             }
         }
     }
