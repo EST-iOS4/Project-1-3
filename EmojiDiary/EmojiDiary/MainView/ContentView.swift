@@ -69,7 +69,7 @@ struct ContentView: View {
                                 dataManager: DiaryDataManager(context: context)
                             )
                             EditView(
-                                getDate: $selectedDate,
+                                getDate: selectedDate,
                                 getFontSize: getFontSize,
                                 editViewModel: editVM
                             )
@@ -95,7 +95,7 @@ struct ContentView: View {
                 }
 
                 // 통계 탭
-                ListView()
+                ListView(getFontSize: getFontSize)
                     .toolbar(.visible, for: .tabBar)
                     .tabItem {
                         Image(systemName: "chart.pie")

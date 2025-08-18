@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct EditView: View {
-    @Binding var getDate: Date // 외부에서 받아오는 날짜
+    let getDate: Date // 외부에서 받아오는 날짜
     @State private var upSheet: Bool = false
     @State private var alert: Bool = false
     @Environment(\.dismiss) var dismiss
