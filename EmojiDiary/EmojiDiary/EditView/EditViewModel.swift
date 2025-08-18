@@ -29,5 +29,6 @@ final class EditViewModel: ObservableObject {
     
     func deleteDiary() {
         dataManager.delete(item: diary)
+        print("삭제")
     }
 }
