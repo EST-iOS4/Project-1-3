@@ -25,7 +25,6 @@ struct EditView: View {
         return f
     }
     
-    
     var body: some View {
         ScrollView {
             VStack(spacing: 20){
@@ -47,7 +46,7 @@ struct EditView: View {
                                 .stroke(Color.gray.opacity(0.3))
                                 .fill(backGroundColor)
                         )
-                        .font(.system(size: getFontSize.fontSize))
+                        .font(.system(size: getFontSize.point))
                         .onTapGesture {
                             isTextEditorFocused = true
                         }

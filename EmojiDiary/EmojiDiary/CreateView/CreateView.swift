@@ -98,7 +98,7 @@ struct CreateView: View {
                                 .stroke(Color.gray.opacity(0.3))
                                 .fill(backGroundColor)
                         )
-                        .font(.system(size: getFontSize.fontSize))
+                        .font(.system(size: getFontSize.point))
                         .onTapGesture {
                             isTextEditorFocused = true
                         }
