@@ -20,7 +20,7 @@
   
 2. **Git Flow 방식**
 - Local Branch -> Feature -> merge main
-<img width="842" height="525" alt="Image" src="https://github.com/user-attachments/assets/268b4a70-4f26-4fae-b366-753e51bfc89e" />
+<img width="650" height= "325" alt="Image" src="https://github.com/user-attachments/assets/268b4a70-4f26-4fae-b366-753e51bfc89e" />
 
 
 ### ✔️코드 컨벤션
@@ -82,8 +82,8 @@ fix: 버그수정
 
 
 ## 🔔 팀원 소개
-|   서정원 | 왕은영 | 강지원 |
+| 서정원 | 왕은영 | 강지원 |
 | --- | --- | --- |
 | (사진) | (사진) | (사진) |
-| IOS | IOS | IOS |
+| IOS, 팀장 | IOS | IOS |
 
