@@ -63,7 +63,7 @@ struct ContentView: View {
                 .navigationDestination(isPresented: $navigationToEdit) {
                     if let diary = selectedDiary {
                         let editVM = EditViewModel(diary: diary, dataManager: DiaryDataManager(context: context))
-                        EditView(getDate: $selectedDate, editViewModel: editVM)
+                        EditView(getDate: selectedDate, editViewModel: editVM)
                     }
                 }
             }
