@@ -11,7 +11,7 @@ import SwiftData
 @Model
 final class Item {
     @Attribute(.unique) var id: UUID
-    let createdAt: Date
+    var createdAt: Date
     var imageData: String
     var content: String?
     

@@ -20,8 +20,5 @@ final class CreateViewModel: ObservableObject {
     func saveDiary(for date: Date, imageData: String, content: String?) {
         let diary = dataManager.createDiary(for: date, imageData: imageData, content: content)
         savedDiary = diary
-        print("저장 성공")
-        
-        
     }
 }
