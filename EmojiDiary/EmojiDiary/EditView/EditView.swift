@@ -13,6 +13,7 @@ struct EditView: View {
     @Environment(\.dismiss) var dismiss
     @FocusState private var isTextEditorFocused: Bool // 키보드 생성
     private let backGroundColor = Color.gray.opacity(0.01) // 백그라운드컬러 통일
+    let getFontSize: fontSize
     
     @ObservedObject var editViewModel: EditViewModel
     
@@ -46,7 +47,7 @@ struct EditView: View {
                                 .stroke(Color.gray.opacity(0.3))
                                 .fill(backGroundColor)
                         )
-                        .font(.body)
+                        .font(.system(size: getFontSize.fontSize))
                         .onTapGesture {
                             isTextEditorFocused = true
                         }
