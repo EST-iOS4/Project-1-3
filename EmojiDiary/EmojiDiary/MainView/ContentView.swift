@@ -44,7 +44,6 @@ struct ContentView: View {
                         SettingView(getFontSize: $getFontSize)
                             .toolbar(Visibility.hidden, for: .tabBar) // 탭바 숨김
                     }
-                    
                     // “???” 화면으로 이동
                     .navigationDestination(isPresented: $navigationToCreate) {
                         CreateView(
@@ -54,6 +53,7 @@ struct ContentView: View {
                             ),
                             getFontSize: getFontSize
                         )
+
                         .onDisappear {
                             // 뒤로 갈 때 플래그 원복(다음 네비게이션을 위해)
                             navigationToCreate = false
