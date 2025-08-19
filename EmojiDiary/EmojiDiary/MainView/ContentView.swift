@@ -36,7 +36,7 @@ struct ContentView: View {
                     
                     Spacer()
                 }
-                .navigationTitle("날짜를 눌러 오늘의 이야기를 담아보세요")
+                .navigationTitle("오늘의 이야기를 담아보세요")
                 .navigationBarTitleDisplayMode(.inline)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 
