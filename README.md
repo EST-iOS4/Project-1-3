@@ -94,4 +94,4 @@ fix: 버그수정
 | 서정원 | 왕은영 | 강지원 |
 | --- | --- | --- |
 |<img width="203" height="202" alt="KakaoTalk_Photo_2025-08-19-04-20-43" src="https://github.com/user-attachments/assets/995bf4ab-4630-440f-a07c-e4326c97a91c" /> | <img width="203" height="202" alt="KakaoTalk_Photo_2025-08-19-04-30-35" src="https://github.com/user-attachments/assets/6fb52c81-d946-4e41-8bd6-14f89e535271" /> | <img width="201" height="202" alt="KakaoTalk_Photo_2025-08-19-04-20-34" src="https://github.com/user-attachments/assets/32f6361c-f443-4203-b2d1-b48f9277d7e4" />|
-| IOS, 팀장 | IOS | IOS |
+| iOS, 팀장 | iOS | iOS |
