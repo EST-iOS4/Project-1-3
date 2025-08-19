@@ -1,0 +1,24 @@
+//
+//  Item.swift
+//  EmojiDiary
+//
+//  Created by 서정원 on 8/12/25.
+//
+
+import Foundation
+import SwiftData
+
+@Model
+final class Item {
+    @Attribute(.unique) var id: UUID
+    var createdAt: Date
+    var imageData: String
+    var content: String?
+    
+    init(id: UUID, createdAt: Date, imageData: String, content: String? = nil) {
+        self.id = id
+        self.createdAt = createdAt
+        self.imageData = imageData
+        self.content = content
+    }
+}
