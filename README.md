@@ -3,7 +3,7 @@
 이스트 소프트 iOS 4기의 UI 실습 프로젝트 입니다. SwiftUI를 활용하여 일기를 CRUD 할 수 있는 iOS 애플리케이션 프로토타입을 구현하였습니다. 이미지와 텍스트를 사용해서 기록 할 수 있습니다.
 
 ## 🔔개발 환경
-![Platform](https://img.shields.io/badge/Platform-iOS-blue) ![Xcode](https://img.shields.io/badge/Xcode-16.4-blue) ![iOS](https://img.shields.io/badge/iOS-16.0+-gray) ![Swift](https://img.shields.io/badge/Swift-6.1.2-orange) 
+![Platform](https://img.shields.io/badge/Platform-iOS-blue) ![Xcode](https://img.shields.io/badge/Xcode-16.4-blue) ![iOS](https://img.shields.io/badge/iOS-18.5+-gray) ![Swift](https://img.shields.io/badge/Swift-6.1.2-orange) 
 
 
 ## 🔔주요 기능 시연 영상
