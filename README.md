@@ -1,13 +1,22 @@
 # 📚 감정 일기 - Emoji Diary
 ---
-이스트 소프트 IOS 4기의 UI 실습 프로젝트 입니다. SwiftUI를 활용하여 일기를 CRUD 할 수 있는 IOS 애플리케이션 프로토타입을 구현하였습니다. 이모티콘과 텍스트를 사용해서 기록 할 수 있습니다.
+이스트 소프트 iOS 4기의 UI 실습 프로젝트 입니다. SwiftUI를 활용하여 일기를 CRUD 할 수 있는 iOS 애플리케이션 프로토타입을 구현하였습니다. 이미지와 텍스트를 사용해서 기록 할 수 있습니다.
 
 ## 🔔개발 환경
 ![Platform](https://img.shields.io/badge/Platform-iOS-blue) ![Xcode](https://img.shields.io/badge/Xcode-16.4-blue) ![iOS](https://img.shields.io/badge/iOS-16.0+-gray) ![Swift](https://img.shields.io/badge/Swift-6.1.2-orange) 
 
 
 ## 🔔주요 기능 시연 영상
-(앱 플로우소개)
+| 메인 | 생성 | 수정/삭제 | 통계 | 세팅 |
+| --- | --- | --- | --- | --- |
+|  <img width="250" height="400" alt="1c8be71c9f83516146bfa111b6ef004906120a0d" src="https://github.com/user-attachments/assets/14b35910-d6de-4ec9-ab1d-98fb23f6e4e3" />   |   <img width="200" height="400" src="https://github.com/user-attachments/assets/1ba5f51c-a45a-4190-a4a3-a18a864b3d3c" />  |  <img width="200" height="400" src="https://github.com/user-attachments/assets/54ef95b0-8e88-4aa3-a858-a98d78be946a" />   |  <img width="200" height="400" src="https://github.com/user-attachments/assets/709eab63-ed0a-4de0-8afa-5980463a0907" />   |  <img width="250" height="400" alt="720dd836ecbe5c34bcde39cf5031e854c74cabc3" src="https://github.com/user-attachments/assets/6b638372-d856-41cd-a424-bee98844068e" />   |
+
+
+ 
+
+
+
+
 
 ## 🔔 Convention
 
@@ -86,4 +95,3 @@ fix: 버그수정
 | --- | --- | --- |
 |<img width="203" height="202" alt="KakaoTalk_Photo_2025-08-19-04-20-43" src="https://github.com/user-attachments/assets/995bf4ab-4630-440f-a07c-e4326c97a91c" /> | <img width="203" height="202" alt="KakaoTalk_Photo_2025-08-19-04-30-35" src="https://github.com/user-attachments/assets/6fb52c81-d946-4e41-8bd6-14f89e535271" /> | <img width="201" height="202" alt="KakaoTalk_Photo_2025-08-19-04-20-34" src="https://github.com/user-attachments/assets/32f6361c-f443-4203-b2d1-b48f9277d7e4" />|
 | IOS, 팀장 | IOS | IOS |
-
