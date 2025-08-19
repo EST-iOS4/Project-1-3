@@ -7,7 +7,16 @@
 
 
 ## 🔔주요 기능 시연 영상
-(앱 플로우소개)
+| 메인 | 생성 | 수정/삭제 | 통계 | 세팅 |
+| --- | --- | --- | --- | --- |
+|  <img width="250" height="400" alt="1c8be71c9f83516146bfa111b6ef004906120a0d" src="https://github.com/user-attachments/assets/14b35910-d6de-4ec9-ab1d-98fb23f6e4e3" />   |   <img width="200" height="400" src="https://github.com/user-attachments/assets/1ba5f51c-a45a-4190-a4a3-a18a864b3d3c" />  |  <img width="200" height="400" src="https://github.com/user-attachments/assets/54ef95b0-8e88-4aa3-a858-a98d78be946a" />   |  <img width="200" height="400" src="https://github.com/user-attachments/assets/709eab63-ed0a-4de0-8afa-5980463a0907" />   |  <img width="250" height="400" alt="720dd836ecbe5c34bcde39cf5031e854c74cabc3" src="https://github.com/user-attachments/assets/6b638372-d856-41cd-a424-bee98844068e" />   |
+
+
+ 
+
+
+
+
 
 ## 🔔 Convention
 
